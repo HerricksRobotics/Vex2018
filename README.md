@@ -1,2 +1,2 @@
-# Vex2018
-Herricks Board 2018
+# Vex 2017-2018 In the Zone
+Here lays all codes for the VEX section of the Robotics club...
