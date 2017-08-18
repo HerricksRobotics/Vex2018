@@ -39,8 +39,8 @@ task main()
 			rightSpeed = vexRT[Ch2];
 		}
 
-		motor[leftWheel] = leftSpeed;
-		motor[rightWheel] = rightSpeed;
+		motor[leftDrive] = leftSpeed;
+		motor[rightDrive] = rightSpeed;
 
 
 
@@ -63,11 +63,11 @@ task main()
 		//lift up using Button 5D or 6U
 		if (vexRT[Btn5D] == 1 || vexRT[Btn6U] == 1)				//moving arm down
 		{
-			armSpeed = -127;
+			armBaseSpeed = -127;
 		}
 		else
 		{
-			armSpeed = 0;
+			armBaseSpeed = 0;
 		}
 
 		motor[leftTopBaseArm] = armBaseSpeed;
