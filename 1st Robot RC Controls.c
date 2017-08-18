@@ -54,10 +54,10 @@ task main()
 			armBaseSpeed = 0;
 		}
 
-		motor[armLeftFront] = armBaseSpeed;
-		motor[armLeftBack] = armBaseSpeed;
-		motor[armRightFront] = armBaseSpeed;
-		motor[armRightBack] = armBaseSpeed;
+		motor[leftTopBaseArm] = armBaseSpeed;
+		motor[leftBottomBaseArm] = armBaseSpeed;
+		motor[rightTopBaseArm] = armBaseSpeed;
+		motor[rightBottomBaseArm] = armBaseSpeed;
 
 
 		//lift up using Button 5D or 6U
@@ -70,10 +70,10 @@ task main()
 			armSpeed = 0;
 		}
 
-		motor[armLeftFront] = armBaseSpeed;
-		motor[armLeftBack] = armBaseSpeed;
-		motor[armRightFront] = armBaseSpeed;
-		motor[armRightBack] = armBaseSpeed;
+		motor[leftTopBaseArm] = armBaseSpeed;
+		motor[leftBottomBaseArm] = armBaseSpeed;
+		motor[rightTopBaseArm] = armBaseSpeed;
+		motor[rightBottomBaseArm] = armBaseSpeed;
 
 	}
 
