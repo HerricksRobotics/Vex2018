@@ -1,0 +1,20 @@
+var leftFront = motor1
+var leftBack = motor2
+var rightFront = motor3
+var rightBack = motor4
+
+while(true);
+  if{
+    VEXrt north;
+  rotate clockwise = leftFront, leftBack; 
+  rotate anticlockwise = rightFront, rightBack};
+  if{
+     VEXrt south;
+  rotate clockwise = rightFront, rightBack;
+  rotate anticlockwise = leftFront, leftBack};
+  if{
+    VEXrt east;
+  rotate clockwise = leftFront, leftBack}; 
+  if{
+     VEXrt west;
+  rotate clockwise = rightFront, rightBack};  
