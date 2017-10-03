@@ -1,1 +1,8 @@
 Autonomous Code in progress for VEX
+
+var motor1 = leftFront
+var motor2 = leftBack
+var motor3 = rightFront
+var motor4 = rightBack
+
+whiletrue(
