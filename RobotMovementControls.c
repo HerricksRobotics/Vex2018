@@ -7,12 +7,10 @@
 #pragma config(Motor,  port8,           grabber,       tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port9,           leftMobileGoal, tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port10,          rightMobileGoal, tmotorVex393_HBridge, openLoop)
-
-/*!!! When power expander comes, move the motors from port 4-7 to power expander
-			and add a 3pin-to-3pin to the input
-
+/*
  !!!IMPORTANT MESSAGE!!!
- 	WE MAY NEED ALL 10 PORTS, AS THIS ROBOT MIGHT USE 10 MOTORS (LATER TO BE DETERMINED)*/
+ 	DO NOT TOUCH THIS FILE
+*/
 
 
 task main()
