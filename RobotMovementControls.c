@@ -8,8 +8,9 @@
 #pragma config(Motor,  port9,           leftMobileGoal, tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port10,          rightMobileGoal, tmotorVex393_HBridge, openLoop)
 /*
- !!!IMPORTANT MESSAGE!!!
- 	DO NOT TOUCH THIS FILE
+ !!!IMPORTANT MESSAGE!!!		DO NOT TOUCH THIS FILE
+
+ 	RC CODE FOR THE 1ST VEX ROBOT
 */
 
 
