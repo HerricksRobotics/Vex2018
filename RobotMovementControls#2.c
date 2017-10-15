@@ -11,11 +11,11 @@ RC CODE FOR 2ND VEX ROBOT
 
 task main()
 {
-		int leftSpeed;
+	int leftSpeed;
 	int rightSpeed;
-	int armBaseSpeed;
-	int grabberSpeed;
-	bool ifMobileGoalActivated = false;
+	//int armBaseSpeed;
+	//int grabberSpeed;
+	//bool ifMobileGoalActivated = false;
 
 	while(true)
 	{
