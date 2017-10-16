@@ -31,34 +31,33 @@ void pinchClose () {
 	motor [RightArmPinch] = 63;
 }
 
-	task main() {
+task main() {
 
-		while(autonomous) {
+	while(autonomous) {
+		motor[backLeft] = SPEED;
+		motor[backRight] = SPEED;
+		motor[frontLeft] = SPEED;
+		motor[frontRight] = SPEED;
+		wait1Msec(TIME * 1000);
+		motor[backLeft] = 0;
+		motor[backRight] = 0;
+		motor[frontLeft] = 0;
+		motor[frontRight] = 0;
 
-			motor[backLeft] = SPEED;
-			motor[backRight] = SPEED;
-			motor[frontLeft] = SPEED;
-			motor[frontRight] = SPEED;
-			wait1Msec(TIME * 1000);
-			motor[backLeft] = 0;
-			motor[backRight] = 0;
-			motor[frontLeft] = 0;
-			motor[frontRight] = 0;
-
-			pinchOpen();
-			wait1Msec(2000);
-			armForward(SPEED);
-			pinchClose();
-			armBackward();
-			motor[backLeft] = -SPEED;
-			motor[backRight] = -SPEED;
-			motor[frontLeft] = -SPEED;
-			motor[frontRight]= -SPEED;
-			wait1Msec(TIME*1000);
-			motor[backLeft] = 0;
-			motor[backRight] = 0;
-			motor[frontLeft] = 0;
-			motor[frontRight] = 0;
-			pinchOpen();
-		}
+		pinchOpen();
+		wait1Msec(2000);
+		armForward(SPEED);
+		pinchClose();
+		armBackward();
+		motor[backLeft] = -SPEED;
+		motor[backRight] = -SPEED;
+		motor[frontLeft] = -SPEED;
+		motor[frontRight]= -SPEED;
+		wait1Msec(TIME*1000);
+		motor[backLeft] = 0;
+		motor[backRight] = 0;
+		motor[frontLeft] = 0;
+		motor[frontRight] = 0;
+		pinchOpen();
 	}
+}
