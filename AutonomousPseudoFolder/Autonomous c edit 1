@@ -32,7 +32,6 @@ void pinchClose () {
 }
 
 task main() {
-
 	while(autonomous) {
 		motor[backLeft] = SPEED;
 		motor[backRight] = SPEED;
