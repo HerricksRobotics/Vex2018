@@ -9,21 +9,20 @@ task main()
 	while(true){
 		while(vexRT[Btn6U]==1)
 			{
-			motor[rightArm]=120;
-			motor[leftArm]=120;
+			motor[rightArm]+=30;
+			motor[leftArm]+=30;
 		}
 		while(vexRT[Btn5U]==1)
 			{
-			motor[rightArm]=-120;
-			motor[leftArm]=-120;
+			motor[rightArm]-=30;
+			motor[leftArm]-=30;
 		}
-		/*while(vexRT[Btn6D]==1)
+		while(vexRT[Btn6D]==1)
 			{
-			motor[pincher]=120;
+			motor[pincher]+=30;
 		}
 		while(vexRT[Btn5D]==1){
-			motor[pincher]=-120;
-			*/
+			motor[pincher]-=30;
 			}
 		}
-
+	}
