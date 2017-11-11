@@ -22,65 +22,65 @@ task main()
 	{
 		//Control Right Side Wheels
 		if (vexRT[Ch2] > -35 && vexRT[Ch2] < 35)
-		{
-			rightSpeed = 0;
-		}
+			{
+				rightSpeed = 0;
+			}
 		else
-		{
-			rightSpeed = vexRT[Ch2];
-		}
+			{
+				rightSpeed = vexRT[Ch2];
+			}
 
 		//Control Left Side Wheels
 		if (vexRT[Ch3] > -35 && vexRT[Ch3] < 35)
-		{
-			leftSpeed = 0;
-		}
+			{
+				leftSpeed = 0;
+			}
 		else
-		{
-			leftSpeed = vexRT[Ch3];
-		}
+			{
+				leftSpeed = vexRT[Ch3];
+			}
 		
 		//Controls Larger Arms Movement 
 		if (Btn6U==1) //Button 6U raises the larger arms
-		{
-			liftArmBaseSpeed = 80;
-		}
+			{
+				liftArmBaseSpeed = 80;
+			}
 		else if (Btn6D==1) //Button 6D lowers the larger arms
-		{
-			liftArmBaseSpeed = -80;
-		}
+			{
+				liftArmBaseSpeed = -80;
+			}
 		else
-		{
-			liftArmBaseSpeed = 0;
-		}
+			{
+				liftArmBaseSpeed = 0;
+			}
 		
 		//Controls Smaller Arms Movement
 		if (Btn5U==1) //Button 6U lowers the smaller arms
-		{
-			fixArmBaseSpeed = 40;
-		}
+			{
+				fixArmBaseSpeed = 40;
+			}
 		else if (Btn5D==1) //Button 6D lowers the smaller arms
-		{
-			fixArmBaseSpeed = 40;
-		}
+			{
+				fixArmBaseSpeed = 40;
+			}
 		else
-		{
-			fixArmBaseSpeed = 0;
-		}
+			{
+				fixArmBaseSpeed = 0;
+			}
 		
 		//Controls Grabbers
 		if (Btn7U==1) //Opens the pinches
-		{
-			grabberSpeed = 30;
-		}
+			{
+				grabberSpeed = 30;
+			}
 		else if (Btn8U==1) //Closes the pinchers
-		{
-			grabberSpeed = 30;
-		}
+			{
+				grabberSpeed = 30;
+			}
 		else
-		{
-			grabberSpeed = 0;
-		}
+			{
+				grabberSpeed = 0;
+			}
 		
 		motor[leftDrive] = leftSpeed;
 		motor[rightDrive] = rightSpeed;
