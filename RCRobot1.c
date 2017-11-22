@@ -1,4 +1,4 @@
-#pragma config(Sensor, in1,    fixedArm,       sensorPotentiometer)
+#pragma config(Sensor, in1,    rotatingArmAngle,       sensorPotentiometer)
 #pragma config(Motor,  port1,           leftDrive,     tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port3,           rightDrive,    tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port4,           leftArmFix,    tmotorVex393_MC29, openLoop)
@@ -6,13 +6,9 @@
 #pragma config(Motor,  port6,           grabber,       tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port7,           leftLift,      tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port8,           rightLift,     tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port9,           mobileGoal,    tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port9,           mobileGoal,    tmotorVex393_MC29, openLoop, reversed)
 
-/*
-!!!IMPORTANT MESSAGE!!!		DO NOT TOUCH THIS FILE
-
-RC CODE FOR THE VEX ROBOT 11040A
-*/
+// TEST CODE FOR THE VEX ROBOT 11040A
 
 
 task main()
@@ -27,11 +23,12 @@ task main()
 	{
 
 		//Activating the mobile goal carrier up using Button 8D
-		also disabling the movement of the arm for stablity
+		//also disabling the movement of the arm for stablity
 		if (vexRT[Btn8D] == 1)
 		{
 			ifMobileGoalActivated = true;
 		}
+
 
 
 		while (!ifMobileGoalActivated)
@@ -47,7 +44,7 @@ task main()
 				leftSpeed = vexRT[Ch3];
 			}
 
-			//ARM CONTROLS
+
 			//To control the right side using channel 2
 			if (vexRT[Ch2] > -35 && vexRT[Ch2] < 35)
 			{
@@ -62,6 +59,8 @@ task main()
 			motor[rightDrive] = rightSpeed;
 
 
+
+			//ARM CONTROLS
 			//lift up yeloow cones using Button 6U
 				if (vexRT[Btn6U] == 1)
 				{
@@ -80,6 +79,10 @@ task main()
 				motor[leftArmFix] = armBaseSpeed;
 				motor[rightArmFix] = armBaseSpeed;
 
+			// NOTE: use the potentiometer to move the armLifts with the armbase motors
+
+
+			/*  !!!NOT YET PRESENT ON THE ROBOT!!!
 			//opening graber using Botton 5U
 			if (vexRT[Btn5U] == 1)
 			{
@@ -94,15 +97,47 @@ task main()
 				grabberSpeed = 0;
 			}
 			motor[grabber] = grabberSpeed;
+			*/
 
 		}
-		if (ifMobileGoalActivated)
+
+
+		//when Btn8D is pressed
+		while (ifMobileGoalActivated)
 		{
-			//deploy mobile goal carrier down and move arms up to lift mobile goal cones
-			if (vexRT[Btn8R] == 1)
+			motor[leftArmFix] = -127;									//setting arms down to the ground
+			motor[rightArmFix] = -127;
+			wait1Msec(1000);				//adjust this value
+
+			motor[mobileGoal] = -127;									//setting the carrier down
+			wait1Msec(1000);				//adjust this value
+
+
+			//ARM CONTROLS
+			if (vexRT[Btn6U] == 1)
 			{
+				armBaseSpeed = 127;
+			}
+
+			else if (vexRT[Btn6D] == 1)
+			{
+				armBaseSpeed = -127;
+			}
+			else
+			{
+				armBaseSpeed = 0;
+			}
+			motor[leftArmFix] = armBaseSpeed;
+			motor[rightArmFix] = armBaseSpeed;
+
+
+			//Disactivating the mobile goal carrier using Button 8U
+			//also reactivating the arm
+			if (vexRT[Btn8U] == 1)
+			{
+				motor[mobileGoal] = 127;							//change value to adjust putting up the carrier
+				wait1Msec(1000);
 				ifMobileGoalActivated = false;
-				//move set arms to bottom and mobile goal carrier motors back up, respectfully
 			}
 
 		}
