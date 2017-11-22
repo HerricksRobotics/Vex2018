@@ -10,6 +10,10 @@
 
 // TEST CODE FOR THE VEX ROBOT 11040A
 
+/*NOTE:
+		SensorValue(rotatingArmAngle)
+value between 0 and 4095 (mechanical limit the values to between 5 and 4092)
+*/
 
 task main()
 {
