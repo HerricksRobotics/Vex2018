@@ -21,22 +21,10 @@ task main()
 	int rightSpeed;
 	int armBaseSpeed;
 	int grabberSpeed;
-	bool ifMobileGoalActivated = false;
+	//bool ifMobileGoalActivated = false;
 
 	while(true)
 	{
-
-		//Activating the mobile goal carrier up using Button 8D
-		//also disabling the movement of the arm for stablity
-		if (vexRT[Btn8D] == 1)
-		{
-			ifMobileGoalActivated = true;
-		}
-
-
-
-		while (!ifMobileGoalActivated)
-		{
 			//DRIVE CONTROLS
 			//To control the left side using channel 3
 			if (vexRT[Ch3] > -35 && vexRT[Ch3] < 35)
@@ -84,8 +72,6 @@ task main()
 				motor[rightArmFix] = armBaseSpeed;
 
 			// NOTE: use the potentiometer to move the armLifts with the armbase motors
-
-
 			/*  !!!NOT YET PRESENT ON THE ROBOT!!!
 			//opening graber using Botton 5U
 			if (vexRT[Btn5U] == 1)
@@ -103,9 +89,34 @@ task main()
 			motor[grabber] = grabberSpeed;
 			*/
 
-		}
+
+			//To bring down the mobile goal carrier
+			if (vexRT[Btn8D] == 1)
+			{
+				//ifMobileGoalActivated = true;
+				motor[mobileGoal] = -127;
+			}
+			else
+			{
+				motor[mobileGoal] = 0;
+			}
 
 
+			//To bring up the mobile goal carrier
+			if (vexRT[Btn8U] == 1)
+			{
+				//ifMobileGoalActivated = true;
+				motor[mobileGoal] = -127;
+			}
+			else
+			{
+				motor[mobileGoal] = 0;
+			}
+
+
+
+
+		/*  trash...might delete soon
 		//when Btn8D is pressed
 		while (ifMobileGoalActivated)
 		{
@@ -145,6 +156,7 @@ task main()
 			}
 
 		}
+		*/
 
 
 	}
