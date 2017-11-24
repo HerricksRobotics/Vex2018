@@ -1,4 +1,12 @@
-
+#pragma config(Sensor, in1,    gyro,       sensorPotentiometer)
+#pragma config(Motor,  port1,           leftDrive,     tmotorVex393_HBridge, openLoop)
+#pragma config(Motor,  port3,           rightDrive,    tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port4,           leftArmFix,    tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           rightArmFix,   tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port6,           grabber,       tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port7,           leftLift,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port8,           rightLift,     tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port9,           mobileGoal,    tmotorVex393_MC29, openLoop, reversed)
 // 			!!!			VEX 11040a		!!!
 
 
@@ -32,7 +40,13 @@ void pre_auton()
   // Set bStopTasksBetweenModes to false if you want to keep user created tasks
   // running between Autonomous and Driver controlled modes. You will need to
   // manage all user created tasks if set to false.
-  bStopTasksBetweenModes = true;
+
+
+  SensorType[in1] = sensorGyro;
+	wait1Msec(1500);
+	SensorValue[gyro] = 0; //positive counterclockwise
+	stopAllMotors();
+  bStopTasksBetweenModes = false;
 
 	// Set bDisplayCompetitionStatusOnLcd to false if you don't want the LCD
 	// used by the competition include file, for example, you might want
