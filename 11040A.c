@@ -8,7 +8,7 @@
 #pragma config(Motor,  port8,           rightLift,     tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port9,           mobileGoal,    tmotorVex393_MC29, openLoop, reversed)
 
-// TEST CODE FOR THE VEX ROBOT 11040A
+// RC CODE FOR THE VEX ROBOT 11040A
 
 /*NOTE:
 		SensorValue(gyro)
@@ -17,11 +17,11 @@ value between 0 and 4095 (mechanical limit the values to between 5 and 4092)
 
 task main()
 {
-	int leftSpeed;
-	int rightSpeed;
-	int armBaseSpeed;
-	int grabberSpeed;
-	int mobileGoalCtrl;
+	short leftSpeed;
+	short rightSpeed;
+	short armBaseSpeed;
+	short grabberCtrl;
+	short mobileGoalCtrl;
 
 	while(true)
 	{
@@ -79,21 +79,6 @@ task main()
 			/*				!!!		MOVING ARM CONTROLS		!!! */
 			// NOTE: use the potentiometer to move the armLifts with the armbase motors
 			/*  !!!NOT YET PRESENT ON THE ROBOT!!!
-			//opening graber using Botton 5U
-			if (vexRT[Btn5U] == 1)
-			{
-				grabberSpeed = 127;
-			}
-			else if (vexRT[Btn5D] == 1)
-			{
-				grabberSpeed = -127;
-			}
-			else
-			{
-				grabberSpeed = 0;
-			}
-			motor[grabber] = grabberSpeed;
-			*/
 
 
 
@@ -131,7 +116,7 @@ task main()
 					Pressing Button 8D should bring the mobile goal carrier down
 			*/
 			mobileGoalCtrl = (vexRT[Btn8D] << 1) + vexRT[Btn8U];
-			switch (mobileGoalSpeed)
+			switch (mobileGoalCtrl)
 			 {
 					case 1:
 							motor[mobileGoal] = -127;
