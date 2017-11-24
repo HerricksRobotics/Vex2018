@@ -20,6 +20,7 @@ task main()
 	short leftSpeed;
 	short rightSpeed;
 	short armBaseSpeed;
+	const short TIME_DEPLOY_CARRIER = 500;						//time to make a 90 deg angle for the mobile goal carrier
 	short grabberCtrl;
 	short mobileGoalCtrl;
 
@@ -120,11 +121,11 @@ task main()
 			 {
 					case 1:
 							motor[mobileGoal] = -127;
-							wait1Msec(1000);
+							wait1Msec(TIME_DEPLOY_CARRIER);
 							break;
 					case 2:
 							motor[mobileGoal] = 127;
-							wait1Msec(1000);
+							wait1Msec(TIME_DEPLOY_CARRIER);
 							break;
 					default:
 							motor[mobileGoal] = 0;
