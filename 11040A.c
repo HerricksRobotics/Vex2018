@@ -19,7 +19,8 @@ task main()
 {
 	short leftSpeed;
 	short rightSpeed;
-	short armBaseSpeed;
+	short armBaseCtrl;
+	short armLiftCtrl;
 	const short TIME_DEPLOY_CARRIER = 500;						//time to make a 90 deg angle for the mobile goal carrier
 	short grabberCtrl;
 	short mobileGoalCtrl;
@@ -49,37 +50,58 @@ task main()
 			{
 				rightSpeed = vexRT[Ch2];
 			}
-
 			motor[leftDrive] = leftSpeed;
 			motor[rightDrive] = rightSpeed;
 
 
 
 			/*				!!!		BASE ARM CONTROLS		!!!
+
+			Pressing Button 6U should lift entire arm up
+			Pressing Button 6D should drag entire arm down
 			*/
-			//lift up yeloow cones using Button 6U
-			if (vexRT[Btn6U] == 1)
+			armBaseCtrl = (vexRT[Btn6U] << 1) + vexRT[Btn6D];
+			switch (armBaseCtrl)
 			{
-				armBaseSpeed = 127;
+					case 1:
+							motor[leftArmFix] = -127;
+							motor[rightArmFix] = -127;
+							break;
+					case 2:
+							motor[leftArmFix] = 127;
+							motor[rightArmFix] = 127;
+							break;
+					default:
+							motor[leftArmFix] = 0;
+							motor[rightArmFix] = 0;
+							break;
 			}
-			//lift down yeloow cones using Button 6D
-			else if (vexRT[Btn6D] == 1)
-			{
-				armBaseSpeed = -127;
-			}
-			else
-			{
-				armBaseSpeed = 0;
-			}
-
-			motor[leftArmFix] = armBaseSpeed;
-			motor[rightArmFix] = armBaseSpeed;
-
 
 
 			/*				!!!		MOVING ARM CONTROLS		!!! */
 			// NOTE: use the potentiometer to move the armLifts with the armbase motors
-			/*  !!!NOT YET PRESENT ON THE ROBOT!!!
+			//For now, there're manual control, but in the future, try to make to automate
+			//	it using sensors
+			/*
+			Pressing Button 7U should lift small arm up
+			Pressing Button 7D should drag small arm down
+			*/
+			armLiftCtrl = (vexRT[Btn7U] << 1) + vexRT[Btn7D];
+			switch (armLiftCtrl)
+			{
+				case 1:
+						motor[leftLift] = -127;
+						motor[rightLift] = -127;
+						break;
+				case 2:
+						motor[leftLift] = 127;
+						motor[rightLift] = 127;
+						break;
+				default:
+						motor[leftLift] = 0;
+						motor[rightLift] = 0;
+						break;
+			}
 
 
 
@@ -119,11 +141,11 @@ task main()
 			mobileGoalCtrl = (vexRT[Btn8D] << 1) + vexRT[Btn8U];
 			switch (mobileGoalCtrl)
 			 {
-					case 1:
+					case 1:																//Bring carrier up
 							motor[mobileGoal] = -127;
-							wait1Msec(TIME_DEPLOY_CARRIER);
+							wait1Msec(TIME_DEPLOY_CARRIER * 2);
 							break;
-					case 2:
+					case 2:																// Bring carrier down
 							motor[mobileGoal] = 127;
 							wait1Msec(TIME_DEPLOY_CARRIER);
 							break;

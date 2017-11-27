@@ -71,6 +71,11 @@ task autonomous()
 {
   // ..........................................................................
   // Insert user code here.
+
+  // THIS IS WHERE THAT 20-SEC AUTONOMOUS CODING GOES INTO!!!!!!!!!!
+  //DONT JUST COPY AND PASTE!! CHECK FOR SYNTAX AND LOGIC ERRORS!!!!!!
+
+
   // ..........................................................................
 
   // Remove this function call once you have "real" code.
@@ -89,18 +94,10 @@ task autonomous()
 
 task usercontrol()
 {
-  // User control code here, inside the loop
 
-  while (true)
-  {
-    // This is the main execution loop for the user control program.
-    // Each time through the loop your program should update motor + servo
-    // values based on feedback from the joysticks.
+  //THIS IS WHERE THAT RC CODING GOES INTO!!!!!!!
+  //AGAIN, DONT JUST COPY AND PASTE!!!! CHECK FOR SYNTAX AND LOGIC ERRORS!!!!
 
-    // ........................................................................
-    // Insert user code here. This is where you use the joystick values to
-    // update your motors, etc.
-    // ........................................................................
 
     // Remove this function call once you have "real" code.
     UserControlCodePlaceholderForTesting();
