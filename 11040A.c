@@ -1,4 +1,4 @@
-#pragma config(Sensor, in1,    gyro,       sensorPotentiometer)
+#pragma config(Sensor, in1,    armFixed,       sensorPotentiometer)
 #pragma config(Motor,  port1,           leftDrive,     tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port3,           rightDrive,    tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port4,           leftArmFix,    tmotorVex393_MC29, openLoop)
@@ -11,8 +11,13 @@
 // RC CODE FOR THE VEX ROBOT 11040A
 
 /*NOTE:
+might want to use Potentiometer...
 		SensorValue(gyro)
 value between 0 and 4095 (mechanical limit the values to between 5 and 4092)
+
+use the motor integrated encoder to substitue the potentiometer bc i think the one
+this robot has is broken :/
+
 */
 
 task main()

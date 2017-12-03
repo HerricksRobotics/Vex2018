@@ -1,4 +1,4 @@
-#pragma config(Sensor, in1,    gyro,       sensorPotentiometer)
+#pragma config(Sensor, in1,    armFixed,       sensorPotentiometer)
 #pragma config(Motor,  port1,           leftDrive,     tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port3,           rightDrive,    tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port4,           leftArmFix,    tmotorVex393_MC29, openLoop)
@@ -8,7 +8,9 @@
 #pragma config(Motor,  port8,           rightLift,     tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port9,           mobileGoal,    tmotorVex393_MC29, openLoop, reversed)
 // 			!!!			VEX 11040a		!!!
-
+// 			!!!			VEX 11040a		!!!
+// 			!!!			VEX 11040a		!!!
+// 			!!!			VEX 11040a		!!!
 
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
