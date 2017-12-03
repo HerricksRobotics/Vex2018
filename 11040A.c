@@ -78,11 +78,12 @@ task main()
 			}
 
 
-			/*				!!!		MOVING ARM CONTROLS		!!! */
+			/*				!!!		MOVING ARM CONTROLS		!!! *
 			// NOTE: use the potentiometer to move the armLifts with the armbase motors
 			//For now, there're manual control, but in the future, try to make to automate
-			//	it using sensors
-			/*
+			  	it using sensors
+					PLANNING NOT TO HAVE MANUAL CONTROL DURING THE COMPETITION!!
+
 			Pressing Button 7U should lift small arm up
 			Pressing Button 7D should drag small arm down
 			*/
@@ -109,16 +110,16 @@ task main()
 
 			Pressing Button 8L should open the grabber
 			Pressing Button 8R should close the grabber
-			*
+			*/
 			grabberCtrl = (vexRT[Btn8L] << 1) + vexRT[Btn8R];
 			switch (grabberCtrl)
-			 	{
-					case 1:
+			{
+					case 1:						//close
 							motor[grabber] = -127;
 							wait1Msec(1000);
 							motor[grabber] = 0;
 							break;
-					case 2:
+					case 2:						//open
 							motor[grabber] = 127;
 							wait1Msec(1000);
 							motor[grabber] = 0;
@@ -126,16 +127,13 @@ task main()
 					default:
 							motor[grabber] = 0;
 							break;
-			 }*/
+			 }
 
 
 
 			/*				!!!		MOBILE GOAL CARRIER CONTROLS		!!!
 
 					Pressing Button 8U should bring the mobile goal carrier up
-						*Note, the grabber will get in the way if mobile goal contains lots of yellow cones,
-							code the 2 arm motors to bring them up or have the grabber grab one of the cones for stability
-
 					Pressing Button 8D should bring the mobile goal carrier down
 			*/
 			mobileGoalCtrl = (vexRT[Btn8D] << 1) + vexRT[Btn8U];
@@ -144,10 +142,24 @@ task main()
 					case 1:																//Bring carrier up
 							motor[mobileGoal] = -127;
 							wait1Msec(TIME_DEPLOY_CARRIER * 2);
+
+							//to bring the armLifts down after setting the mobile goal in place
+							motor[leftLift] = -127;
+							motor[rightLift] = -127;
+							wait1Msec(1000);
+							motor[leftLift] = 0;
+							motor[rightLift] = 0;
 							break;
 					case 2:																// Bring carrier down
 							motor[mobileGoal] = 127;
 							wait1Msec(TIME_DEPLOY_CARRIER);
+
+							//to bring the armLifts up to prevent interferance with stacked yellow cones
+							motor[leftLift] = 127;
+							motor[rightLift] = 127;
+							wait1Msec(1000);
+							motor[leftLift] = 0;
+							motor[rightLift] = 0;
 							break;
 					default:
 							motor[mobileGoal] = 0;
