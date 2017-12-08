@@ -12,7 +12,7 @@
 
 /*NOTE:
 might want to use Potentiometer...
-		SensorValue(gyro)
+		SensorValue(armFixed)
 value between 0 and 4095 (mechanical limit the values to between 5 and 4092)
 
 use the motor integrated encoder to substitue the potentiometer bc i think the one
