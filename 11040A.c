@@ -120,13 +120,13 @@ task main()
 			switch (grabberCtrl)
 			{
 					case 1:						//close
-							motor[grabber] = -127;
-							wait1Msec(1000);
+							motor[grabber] = -70;
+							wait1Msec(250);
 							motor[grabber] = 0;
 							break;
 					case 2:						//open
-							motor[grabber] = 127;
-							wait1Msec(1000);
+							motor[grabber] = 70;
+							wait1Msec(250);
 							motor[grabber] = 0;
 							break;
 					default:
@@ -145,8 +145,6 @@ task main()
 			switch (mobileGoalCtrl)
 			 {
 					case 1:																//Bring carrier up
-							motor[mobileGoal] = -127;
-							wait1Msec(TIME_DEPLOY_CARRIER * 2);
 
 							//to bring the armLifts down after setting the mobile goal in place
 							motor[leftLift] = -127;
@@ -154,6 +152,12 @@ task main()
 							wait1Msec(1000);
 							motor[leftLift] = 0;
 							motor[rightLift] = 0;
+
+
+							motor[mobileGoal] = -127;
+							wait1Msec(TIME_DEPLOY_CARRIER * 2);
+
+
 							break;
 					case 2:																// Bring carrier down
 							motor[mobileGoal] = 127;
@@ -165,6 +169,7 @@ task main()
 							wait1Msec(1000);
 							motor[leftLift] = 0;
 							motor[rightLift] = 0;
+
 							break;
 					default:
 							motor[mobileGoal] = 0;
