@@ -10,6 +10,8 @@
 
 int leftEncoderValue = 0;
 int rightEncoderValue = 0;
+float leftDistance;
+float rightDistance;
 float changeInX;
 float changeInY;
 float x = 0;                  //the x position from the starting position
@@ -22,12 +24,16 @@ void location()
 {
     z = degreesToRadians(sensorValue[gyro]);              //gyro outputs degrees... gotta change it to rad
                                                         //bc sin and cos outputs rad :/
+
+    leftDistance = 4 * PI * ((leftEncoderValue)/360);
+    rightDistance = 4 * PI * ((rightEncoderValue)/360);
+
     /*
+    distance = something..... god dam centripetal forces and math :(
     changeInX = cos(z) * distance;
     changeInY = sin(z) * distance;
-
-    idk how to calculate the distance using 2 encoders currently...
     */
+
     x += changeInX;
     y += changeInY;
 }
