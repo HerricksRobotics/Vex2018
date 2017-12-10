@@ -14,10 +14,6 @@
 might want to use Potentiometer...
 		SensorValue(armFixed)
 value between 0 and 4095 (mechanical limit the values to between 5 and 4092)
-
-use the motor integrated encoder to substitue the potentiometer bc i think the one
-this robot has is broken :/
-
 */
 
 task main()
@@ -32,8 +28,6 @@ task main()
 
 	while(true)
 	{
-
-
 			/*				!!!		DRIVE CONTROLS		!!!
 			*/
 			//To control the left side using channel 3
@@ -84,7 +78,7 @@ task main()
 
 
 			/*				!!!		MOVING ARM CONTROLS		!!! *
-			// NOTE: use the potentiometer to move the armLifts with the armbase motors
+			// NOTE: use the potentiometers to move the armLifts with the armbase motors
 			//For now, there're manual control, but in the future, try to make to automate
 			  	it using sensors
 					PLANNING NOT TO HAVE MANUAL CONTROL DURING THE COMPETITION!!
@@ -143,8 +137,10 @@ task main()
 			*/
 			mobileGoalCtrl = (vexRT[Btn8D] << 1) + vexRT[Btn8U];
 			switch (mobileGoalCtrl)
-			 {
+			{
 					case 1:																//Bring carrier up
+							motor[mobileGoal] = -127;
+							wait1Msec(TIME_DEPLOY_CARRIER * 2);
 
 							//to bring the armLifts down after setting the mobile goal in place
 							motor[leftLift] = -127;
@@ -153,16 +149,8 @@ task main()
 							motor[leftLift] = 0;
 							motor[rightLift] = 0;
 
-
-							motor[mobileGoal] = -127;
-							wait1Msec(TIME_DEPLOY_CARRIER * 2);
-
-
 							break;
 					case 2:																// Bring carrier down
-							motor[mobileGoal] = 127;
-							wait1Msec(TIME_DEPLOY_CARRIER);
-
 							//to bring the armLifts up to prevent interferance with stacked yellow cones
 							motor[leftLift] = 127;
 							motor[rightLift] = 127;
@@ -170,11 +158,13 @@ task main()
 							motor[leftLift] = 0;
 							motor[rightLift] = 0;
 
+							motor[mobileGoal] = 127;
+							wait1Msec(TIME_DEPLOY_CARRIER);
 							break;
 					default:
 							motor[mobileGoal] = 0;
 							break;
-			 }
+			}
 	}
 
 }
