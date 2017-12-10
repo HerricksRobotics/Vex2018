@@ -51,6 +51,10 @@ void pre_auton()
   // running between Autonomous and Driver controlled modes. You will need to
   // manage all user created tasks if set to false.
 
+	SensorType[in3] = sensorNone;
+	wait1Msec(1000);
+	SensorType[in3] = sensorGyro;
+	wait1Msec(2000);
 	SensorValue[gyro] = 0; //positive counterclockwise
 
 	SensorValue[rightEncoder] = 0;
