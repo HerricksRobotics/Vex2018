@@ -8,24 +8,6 @@
 //This class is purely for calculating the robot's position relative to the playing area
 
 
-/*
-Change in X = COS(Radian) * Distance
-Change in Y = SIN(Radian)* Distance
-and
-Y += Change in Y
-X += Change in X
-
-this will get the basics of how the code works, just keep in mind the SIN and COS functions want radians,
-and they output Radians, but the gyro outputs in degrees, so you will have to use the function RadiansToDegrees(angle)
-then you put that into the SIN and COS functions
-
-once you have this, you can track your robots location, from there it is just making the auto-navigation code,
-and fine-tuning every thing
-
-for autonavigation, you just need a control loop to turn you to a specific location on the Gyro Sensor,
-and you use the ArcTan function of robotC
-*/
-
 int leftEncoderValue = 0;
 int rightEncoderValue = 0;
 float changeInX;
