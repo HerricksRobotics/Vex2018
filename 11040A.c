@@ -1,6 +1,6 @@
 #pragma config(Sensor, in1,    armFixed,       sensorPotentiometer)
 #pragma config(Sensor, in2,    armLift,        sensorPotentiometer)
-#pragma config(Sensor, in3,    gryo,           sensorGyro)
+#pragma config(Sensor, in3,    gyro,           sensorGyro)
 #pragma config(Sensor, dgtl1,  leftEncoder,    sensorQuadEncoder)
 #pragma config(Sensor, dgtl3,  rightEncoder,   sensorQuadEncoder)
 #pragma config(Motor,  port1,           leftDrive,     tmotorVex393_HBridge, openLoop)

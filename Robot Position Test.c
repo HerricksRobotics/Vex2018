@@ -1,4 +1,4 @@
-#pragma config(Sensor, in3,    gryo,           sensorGyro)
+#pragma config(Sensor, in3,    gyro,           sensorGyro)
 #pragma config(Sensor, dgtl1,  leftEncoder,    sensorQuadEncoder)
 #pragma config(Sensor, dgtl3,  rightEncoder,   sensorQuadEncoder)
 #pragma config(Motor,  port1,           leftDrive,     tmotorVex393_HBridge, openLoop)
@@ -46,9 +46,7 @@ void location()
 //calculating the distance from the starting position
 float distance()
 {
-  float distance = sqrt(ChangeInX^2+ChangeInY^2);
-
-  return distance;
+  return sqrt(pow(changeInX,2) + pow(changeInY,2);
 }
 
 float angle()
@@ -57,6 +55,7 @@ float angle()
   return angle;
 }
 
+
 //calculating the quickest distance to the target location and getting there
 void targetLocation()
 {
@@ -64,6 +63,10 @@ void targetLocation()
 }
 
 
+void gps()
+{
+
+}
 
 task main()
 {
