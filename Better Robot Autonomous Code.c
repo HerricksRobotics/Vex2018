@@ -42,7 +42,7 @@ void armLift (int bigSpeed)
 	{
 		motor[bigArm] = bigSpeed;
 	}
-	
+
 void right_Turn(int degrees10) {
 	while(abs(SensorValue[in8]) < degrees10)
  	{
@@ -70,13 +70,26 @@ void liftArm(int liftAngle)
 	motor[leftArmT] = 127;
 	motor[rightArmB] = 127;
 	motor[rightArmT] = 127;
-	untilPotentiometerGreaterThan(liftAngle, in2);
+	SensorValue(Potentiometer);
 	motor[leftArmB] = 0;
 	motor[leftArmT] = 0;
 	motor[rightArmB] = 0;
 	motor[rightArmT] = 0;
-	
-	
+}
+
+void moveForward(int speed, int time) {
+		motor[leftFront] = speed;
+		motor[leftBack] = speed;
+		motor[rightFront] = speed;
+		motor[rightBack] = speed;
+		wait1Msec(time * 1000);
+		motor[leftFront] = 0;
+		motor[leftBack] = 0;
+		motor[rightFront] = 0;
+		motor[rightBack] = 0;
+}
+
+
 task main()
 {
 
@@ -91,16 +104,11 @@ task main()
 	int pincherSpeed = 30;
 	int bigSpeed = 200;
 	int TIME = 5; //in seconds
-	while(true)
-	{
-		//pinchOpen(pincherSpeed);
-		//Cone in hand, move forward
-		motor[leftFront] = wheelSpeed;
-		motor[leftBack] = wheelSpeed;
-		motor[rightFront] = wheelSpeed;
-		motor[rightBack] = wheelSpeed;
-		wait1Msec(TIME * 1000);
-
+	//pinchOpen(pincherSpeed);
+	//Cone in hand, move forward
+	moveForward(127, 10);
+		
+	/*
 		//Open Pincher to drop Yellow Cone on Red/Blue Cone
 		pinchOpen(pincherSpeed);
 
@@ -125,6 +133,5 @@ task main()
 		armDown(pincherSpeed);
 		pinchOpen(pincherSpeed);
 		armUp(pincherSpeed);
-		pinchClose(pincherSpeed);
-		}
+		pinchClose(pincherSpeed);*/
 }
