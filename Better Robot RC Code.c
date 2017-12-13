@@ -47,12 +47,12 @@ task main()
 			}
 
 		//Controls arm movement
-		if (vexRT[Btn6U]==1 && SensorValue[liftAngle] < 1800) {
-			armBaseSpeed = -110;
+		if (vexRT[Btn6U]==1 && SensorValue[liftAngle]  > 1900) {
+			armBaseSpeed = -60;
 			grabberSpeed = 0;
 		}
-		else if (vexRT[Btn6D]==1 && SensorValue[liftAngle] > 1800) {
-			armBaseSpeed = 110;
+		else if (vexRT[Btn6U]==1 && SensorValue[liftAngle] < 1900) {
+			armBaseSpeed = 60;
 			//grabberSpeed = -30;
 		}
 		else {
