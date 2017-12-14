@@ -28,6 +28,7 @@ task main()
 	short armBaseCtrl;
 	short armLiftCtrl;
 	const short TIME_DEPLOY_CARRIER = 500;						//time to make a 90 deg angle for the mobile goal carrier
+	const short HIGHEST_ANGLE;												//set it to a value using the debug window
 	short grabberCtrl;
 	short mobileGoalCtrl;
 
@@ -68,12 +69,28 @@ task main()
 			switch (armBaseCtrl)
 			{
 					case 1:
-							motor[leftArmFix] = -127;
-							motor[rightArmFix] = -127;
+							if (sensorValue[armFixed] > HIGHEST_ANGLE)
+							{
+								motor[leftArmFix] = -127;
+								motor[rightArmFix] = -127;
+							}
+							else
+							{
+								motor[leftLift] = -127;
+								motor[rightLift] = -127;
+							}
 							break;
 					case 2:
-							motor[leftArmFix] = 127;
-							motor[rightArmFix] = 127;
+							if (sensorValue[armFixed] < HIGHEST_ANGLE)
+							{
+								motor[leftArmFix] = 127;
+								motor[rightArmFix] = 127;
+							}
+							else
+							{
+								motor[leftLift] = 127;
+								motor[rightLift]= 127;
+							}
 							break;
 					default:
 							motor[leftArmFix] = 0;
@@ -90,7 +107,7 @@ task main()
 
 			Pressing Button 7U should lift small arm up
 			Pressing Button 7D should drag small arm down
-			*/
+			*
 			armLiftCtrl = (vexRT[Btn7U] << 1) + vexRT[Btn7D];
 			switch (armLiftCtrl)
 			{
@@ -99,15 +116,14 @@ task main()
 						motor[rightLift] = -127;
 						break;
 				case 2:
-						motor[leftLift] = 127;
-						motor[rightLift] = 127;
+
 						break;
 				default:
 						motor[leftLift] = 0;
 						motor[rightLift] = 0;
 						break;
 			}
-
+			*/
 
 
 			/*				!!!		GRABBER CONTROLS		!!!
