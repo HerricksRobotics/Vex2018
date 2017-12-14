@@ -29,6 +29,7 @@ task main()
 	short armLiftCtrl;
 	const short TIME_DEPLOY_CARRIER = 500;						//time to make a 90 deg angle for the mobile goal carrier
 	const short HIGHEST_ANGLE;												//set it to a value using the debug window
+	const short LOWEST_ANGLE;													//set it to a value using the debug window
 	short grabberCtrl;
 	short mobileGoalCtrl;
 
@@ -68,23 +69,27 @@ task main()
 			armBaseCtrl = (vexRT[Btn6U] << 1) + vexRT[Btn6D];
 			switch (armBaseCtrl)
 			{
-					case 1:
-							if (sensorValue[armFixed] > HIGHEST_ANGLE)
+					case 1: //going down
+							if (sensorValue[armLift] > LOWEST_ANGLE)
+							{
+								motor[leftArmFix] = -127;
+								motor[rightArmFix] = -127;
+								motor[leftLift] = -127;
+								motor[rightLift] = -127;
+							}
+							else
 							{
 								motor[leftArmFix] = -127;
 								motor[rightArmFix] = -127;
 							}
-							else
-							{
-								motor[leftLift] = -127;
-								motor[rightLift] = -127;
-							}
 							break;
-					case 2:
+					case 2: //going up
 							if (sensorValue[armFixed] < HIGHEST_ANGLE)
 							{
 								motor[leftArmFix] = 127;
 								motor[rightArmFix] = 127;
+								motor[leftLift] = 127;
+								motor[rightLift]= 127;
 							}
 							else
 							{
@@ -97,33 +102,6 @@ task main()
 							motor[rightArmFix] = 0;
 							break;
 			}
-
-
-			/*				!!!		MOVING ARM CONTROLS		!!! *
-			// NOTE: use the potentiometers to move the armLifts with the armbase motors
-			//For now, there're manual control, but in the future, try to make to automate
-			  	it using sensors
-					PLANNING NOT TO HAVE MANUAL CONTROL DURING THE COMPETITION!!
-
-			Pressing Button 7U should lift small arm up
-			Pressing Button 7D should drag small arm down
-			*
-			armLiftCtrl = (vexRT[Btn7U] << 1) + vexRT[Btn7D];
-			switch (armLiftCtrl)
-			{
-				case 1:
-						motor[leftLift] = -127;
-						motor[rightLift] = -127;
-						break;
-				case 2:
-
-						break;
-				default:
-						motor[leftLift] = 0;
-						motor[rightLift] = 0;
-						break;
-			}
-			*/
 
 
 			/*				!!!		GRABBER CONTROLS		!!!
