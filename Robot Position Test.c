@@ -8,15 +8,13 @@
 //This class is purely for calculating the robot's position relative to the playing area
 
 
-int leftEncoderValue = 0;
-int rightEncoderValue = 0;
 float leftDistance;
 float rightDistance;
 float changeInX;
 float changeInY;
 float x = 0;                  //the x position from the starting position
 float y = 0;                  //the y position from the starting position
-float z = 0;                  //degrees of the robot facing from the starting position
+float z = 0;                  //radians of the robot facing from the starting position
 
 
 //(x,y) of the robot's current position
@@ -25,8 +23,9 @@ void location()
     z = degreesToRadians(sensorValue[gyro]);              //gyro outputs degrees... gotta change it to rad
                                                         //bc sin and cos outputs rad :/
 
-    leftDistance = 4 * PI * ((leftEncoderValue)/360);
-    rightDistance = 4 * PI * ((rightEncoderValue)/360);
+    leftDistance = 4 * PI * (sensorValue[leftEncoder]/360);
+    rightDistance = 4 * PI * (sensorValue[rightEncoder]/360);
+
 
     /*
     distance = something..... god dam centripetal forces and math :(
@@ -37,10 +36,6 @@ void location()
     x += changeInX;
     y += changeInY;
 }
-
-
-
-
 
 
 //calculating the distance from the starting position
@@ -56,13 +51,14 @@ float angle()
 }
 
 
-//calculating the quickest distance to the target location and getting there
+//calculating the quickest distance to the target location and movoing there
 void targetLocation()
 {
 
 }
 
 
+//Main method of the heavy work... hopefully
 void gps()
 {
 
@@ -80,9 +76,10 @@ task main()
   SensorValue[leftEncoder] = 0;
   SensorValue[rightEncoder] = 0;
 
-
   short leftSpeed;
   short rightSpeed;
+
+
   while(true)
   {
     /*				!!!		DRIVE CONTROLS		!!!        */
@@ -107,9 +104,6 @@ task main()
     }
     motor[leftDrive] = leftSpeed;
     motor[rightDrive] = rightSpeed;
-
-    leftEncoderValue = SensorValue[leftEncoder];
-    rightEncoderValue = SensorValue[rightEncoder];
 
     gps();
   }
