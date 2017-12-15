@@ -26,10 +26,9 @@ task main()
 	short leftSpeed;
 	short rightSpeed;
 	short armBaseCtrl;
-	short armLiftCtrl;
 	const short TIME_DEPLOY_CARRIER = 500;						//time to make a 90 deg angle for the mobile goal carrier
-	const short HIGHEST_ANGLE;												//set it to a value using the debug window
-	const short LOWEST_ANGLE;													//set it to a value using the debug window
+	const short HIGHEST_ANGLE = 0;												//set it to a value using the debug window
+	const short LOWEST_ANGLE = 0;													//set it to a value using the debug window
 	short grabberCtrl;
 	short mobileGoalCtrl;
 
@@ -70,7 +69,7 @@ task main()
 			switch (armBaseCtrl)
 			{
 					case 1: //going down
-							if (sensorValue[armLift] > LOWEST_ANGLE)
+							if (SensorValue[armLift] > LOWEST_ANGLE)
 							{
 								motor[leftArmFix] = -127;
 								motor[rightArmFix] = -127;
@@ -84,7 +83,7 @@ task main()
 							}
 							break;
 					case 2: //going up
-							if (sensorValue[armFixed] < HIGHEST_ANGLE)
+							if (SensorValue[armFixed] < HIGHEST_ANGLE)
 							{
 								motor[leftArmFix] = 127;
 								motor[rightArmFix] = 127;
