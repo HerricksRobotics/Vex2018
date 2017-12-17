@@ -15,20 +15,16 @@
 
 // RC CODE FOR THE VEX ROBOT 11040A
 
-/*NOTE:
-might want to use Potentiometer...
-		SensorValue(armFixed)
-value between 0 and 4095 (mechanical limit the values to between 5 and 4092)
-*/
-
 task main()
 {
 	short leftSpeed;
 	short rightSpeed;
 	short armBaseCtrl;
 	const short TIME_DEPLOY_CARRIER = 500;						//time to make a 90 deg angle for the mobile goal carrier
-	const short HIGHEST_ANGLE = 0;												//set it to a value using the debug window
-	const short LOWEST_ANGLE = 0;													//set it to a value using the debug window
+	const short LFIXED_ANGLE = 0;									//for the armFixed Pot
+	const short HFIXED_ANGLE = 915;
+	const short LLIFT_ANGLE = 1480;
+	const short HLIFT_ANGLE = 2030;											//for the armLift Pot
 	short grabberCtrl;
 	short mobileGoalCtrl;
 
@@ -58,42 +54,68 @@ task main()
 			motor[leftDrive] = leftSpeed;
 			motor[rightDrive] = rightSpeed;
 
-
-
 			/*				!!!		BASE ARM CONTROLS		!!!
 
 			Pressing Button 6U should lift entire arm up
 			Pressing Button 6D should drag entire arm down
 			*/
-			armBaseCtrl = (vexRT[Btn6U] << 1) + vexRT[Btn6D];
+			const short fixedSpeed = 80;
+			const short liftSpeed = 80;
+			if (vexRT[Btn6U] == 1) {
+				motor[leftArmFix] = fixedSpeed;
+				motor[rightArmFix] = fixedSpeed;
+			}
+			else if (vexRT[Btn6D] == 1) {
+				motor[leftArmFix] = -fixedSpeed;
+				motor[rightArmFix] = -fixedSpeed;
+			}
+			else {
+				motor[leftArmFix] = 0;
+				motor[rightArmFix] = 0;
+			}
+
+			if (vexRT[Btn5U] == 1) {
+				motor[leftLift] = liftSpeed;
+				motor[rightLift] = liftSpeed;
+			}
+			else if (vexRT[Btn5D] == 1) {
+				motor[leftLift] = -liftSpeed;
+				motor[rightLift] = -liftSpeed;
+			}
+			else {
+				motor[leftLift] = 0;
+				motor[rightLift] = 0;
+			}
+			/*armBaseCtrl = (vexRT[Btn6U] << 1) + vexRT[Btn6D];
+			int armSpeed = 60;
 			switch (armBaseCtrl)
 			{
 					case 1: //going down
-							if (SensorValue[armLift] > LOWEST_ANGLE)
+							if (SensorValue[armLift] > LLIFT_ANGLE)
 							{
-								motor[leftArmFix] = -127;
-								motor[rightArmFix] = -127;
-								motor[leftLift] = -127;
-								motor[rightLift] = -127;
+								motor[leftArmFix] = -armSpeed;
+								motor[rightArmFix] = -armSpeed;
+								motor[leftLift] = -armSpeed;
+								motor[rightLift] = -armSpeed;
 							}
-							else
+							else if (SensorValue[armFixed] > LFIXED_ANGLE)
 							{
-								motor[leftArmFix] = -127;
-								motor[rightArmFix] = -127;
+								motor[leftArmFix] = -armSpeed;
+								motor[rightArmFix] = -armSpeed;
 							}
 							break;
 					case 2: //going up
-							if (SensorValue[armFixed] < HIGHEST_ANGLE)
+							if (SensorValue[armFixed] < HFIXED_ANGLE)
 							{
-								motor[leftArmFix] = 127;
-								motor[rightArmFix] = 127;
-								motor[leftLift] = 127;
-								motor[rightLift]= 127;
+								motor[leftArmFix] = armSpeed;
+								motor[rightArmFix] = armSpeed;
+								motor[leftLift] = armSpeed;
+								motor[rightLift]= armSpeed;
 							}
-							else
+							else if (SensorValue[armLift] < HLIFT_ANGLE)
 							{
-								motor[leftLift] = 127;
-								motor[rightLift]= 127;
+								motor[leftLift] = armSpeed;
+								motor[rightLift]= armSpeed;
 							}
 							break;
 					default:
@@ -101,8 +123,7 @@ task main()
 							motor[rightArmFix] = 0;
 							break;
 			}
-
-
+			*/
 			/*				!!!		GRABBER CONTROLS		!!!
 
 			Pressing Button 8L should open the grabber
@@ -133,6 +154,7 @@ task main()
 					Pressing Button 8U should bring the mobile goal carrier up
 					Pressing Button 8D should bring the mobile goal carrier down
 			*/
+			/*
 			mobileGoalCtrl = (vexRT[Btn8D] << 1) + vexRT[Btn8U];
 			switch (mobileGoalCtrl)
 			{
@@ -155,14 +177,13 @@ task main()
 							wait1Msec(1000);
 							motor[leftLift] = 0;
 							motor[rightLift] = 0;
-
 							motor[mobileGoal] = 127;
 							wait1Msec(TIME_DEPLOY_CARRIER);
 							break;
 					default:
 							motor[mobileGoal] = 0;
 							break;
-			}
+			}*/
 	}
 
 }

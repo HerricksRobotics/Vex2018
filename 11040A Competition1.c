@@ -94,36 +94,24 @@ void liftLiftArm(int speed) {
 }
 task autonomous()
 {
-  // ..........................................................................
-  // Insert user code here./*
-  // THIS IS WHERE THAT 20-SEC AUTONOMOUS CODING GOES INTO!!!!!!!!!!
-  //DONT JUST COPY AND PASTE!! CHECK FOR SYNTAX AND LOGIC ERRORS!!!!!!
-
-
-  // ..........................................................................
-
-  // Remove this function call once you have "real" code.
-	liftFixedArm(80);
+	motor[mobileGoal]=100;
+	wait1Msec(500);
+	motor[mobileGoal] = 0;
+	moveForward(127);
+	wait1Msec(3500);
+	moveForward(0);
+	liftFixedArm(100);
+	moveForward(-127);
+	wait1Msec(3500);
+	motor[leftDrive] = 127;
 	wait1Msec(2500);
-	liftFixedArm(0);
-	liftLiftArm(80);
-	wait1Msec(1200);
-	liftLiftArm(0);
-  moveForward(30);
-  wait1Msec(1400);
-  moveForward(0);
-  liftLiftArm(-80);
-  wait1Msec(1200);
-  motor[grabber]=-80;
-  wait1Msec(500);
-  motor[grabber]=0;
-  liftLiftArm(0);
-  liftLiftArm(80);
-  wait1Msec(1200);
-  liftLiftArm(0);
-  moveForward(-30);
-  wait1Msec(1400);
-  moveForward(0);
+	motor[leftDrive] = 0;
+	moveForward(127);
+	wait1Msec(1000);
+	moveForward(-127);
+	liftFixedArm(-127);
+
+
 }
 
 /*---------------------------------------------------------------------------*/
@@ -255,12 +243,12 @@ task usercontrol()
 			switch (grabberCtrl)
 			{
 					case 1:						//close
-							motor[grabber] = -70;
+							motor[grabber] = -110;
 							wait1Msec(250);
 							motor[grabber] = 0;
 							break;
 					case 2:						//open
-							motor[grabber] = 70;
+							motor[grabber] = 110;
 							wait1Msec(250);
 							motor[grabber] = 0;
 							break;
@@ -276,7 +264,7 @@ task usercontrol()
 					Pressing Button 8U should bring the mobile goal carrier up
 					Pressing Button 8D should bring the mobile goal carrier down
 			*/
-			/*
+
 			mobileGoalCtrl = (vexRT[Btn8D] << 1) + vexRT[Btn8U];
 			switch (mobileGoalCtrl)
 			{
@@ -284,27 +272,31 @@ task usercontrol()
 							motor[mobileGoal] = -127;
 							wait1Msec(TIME_DEPLOY_CARRIER * 2);
 
+							/*
 							//to bring the armLifts down after setting the mobile goal in place
 							motor[leftLift] = -127;
 							motor[rightLift] = -127;
 							wait1Msec(1000);
 							motor[leftLift] = 0;
 							motor[rightLift] = 0;
+							*/
 
 							break;
 					case 2:																// Bring carrier down
-							//to bring the armLifts up to prevent interferance with stacked yellow cones
+						/*
+					//to bring the armLifts up to prevent interferance with stacked yellow cones
 							motor[leftLift] = 127;
 							motor[rightLift] = 127;
 							wait1Msec(1000);
 							motor[leftLift] = 0;
 							motor[rightLift] = 0;
+							*/
 							motor[mobileGoal] = 127;
 							wait1Msec(TIME_DEPLOY_CARRIER);
 							break;
 					default:
 							motor[mobileGoal] = 0;
 							break;
-			}*/
+			}
 	}
   }
