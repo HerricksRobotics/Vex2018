@@ -74,11 +74,4 @@ task main()
 			armBaseCtrl = (vexRT[Btn6U] << 1) + vexRT[Btn6D];
 
 
-
-
-
-
-
-			
-
 }
