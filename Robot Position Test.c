@@ -57,6 +57,14 @@ void targetLocation()
 
 }
 
+/*
+      THE MAIN BRAINS
+*/
+void gps()
+{
+
+}
+
 
 //Main method of the heavy work... hopefully
 void gps()
