@@ -4,7 +4,6 @@
 #pragma config(Motor,  port1,           leftDrive,     tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port3,           rightDrive,    tmotorVex393_MC29, openLoop, reversed)
 //based of 2-motor drive
-
 //This class is purely for calculating the robot's position relative to the playing area
 
 
@@ -15,23 +14,49 @@ float changeInY;
 float x = 0;                  //the x position from the starting position
 float y = 0;                  //the y position from the starting position
 float z = 0;                  //radians of the robot facing from the starting position
-
+                              //LOL WHEN RICHARD FINDS THIS SHIT IT MEANS HES RETARDED
 
 //(x,y) of the robot's current position
 void location()
 {
+    float radius;
+    float totalDistance;
+
     z = degreesToRadians(sensorValue[gyro]);              //gyro outputs degrees... gotta change it to rad
                                                         //bc sin and cos outputs rad :/
+                                                        //Richard is a fucking dumbass
+                                                        //whoever writes this code is in love with christopher lo
+
+                                                        //Aman fuck you
+/*
+import random
+print("time to play guess the fucking number")
+num = random.randrange(0,11)
+x = int(input("Enter your guess from 1- 10 integers: "))
+if x == num:
+  print("You fucking won")
+else:
+  print("you fucking grape, u suck")
+*/
+
 
     leftDistance = 4 * PI * (sensorValue[leftEncoder]/360);
     rightDistance = 4 * PI * (sensorValue[rightEncoder]/360);
 
 
-    /*
-    distance = something..... god dam centripetal forces and math :(
-    changeInX = cos(z) * distance;
-    changeInY = sin(z) * distance;
-    */
+    if (leftDistance < rightDistance)
+    {
+      radius = (leftDistance/z - rightDistance/z)/2 + leftDistance/z
+      totalDistance = radius * z;
+    }
+    else
+    {
+      radius = (rightDistance/z - leftDistance/z)/2 + rightDistance/z
+      totalDistance = radius * z;
+    }
+
+    changeInX = totalDistance * cos(z);
+    changeInY = totalDistance * sin(z);
 
     x += changeInX;
     y += changeInY;
