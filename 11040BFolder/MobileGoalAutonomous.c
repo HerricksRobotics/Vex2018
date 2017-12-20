@@ -31,17 +31,46 @@ task main()
 	int grabberSpeed;
 	int mobileSpeed;
 
-	//Keep Pinching
-	motor[frontMotor] = 30;
+	//Close Pincher
+	motor[frontMotor] = 127;
+	wait1MSec(1000);
+	//Lift Backward
+	liftArm(80);
+	wait1Msec(2000);
+	liftArm(0);
+	motor[frontMotor] = 0;
 
+	/*
+	//Move Forward a bit
+	moveForward(-127);
+	wait1Msec(700);
+	moveForward(0);
+
+	//Lift Backward
+	liftArm(-80);
+	wait1Msec(4000);
+	liftArm(0);
+
+	//Open Grabber
+	motor[frontMotor] = -30;
+	wait1Msec(1000);
+	motor[frontMotor] = 0;
+
+	//Move into Preload and Grab It
+	moveForward(60);
+	wait1Msec(800);
+	moveForward(0);
+	motor[frontMotor] = 30;
+	wait1Msec(1000);
+	motor[frontMotor] = 0;
 	//Lower Mobile Lift
 	motor[mobileLift] = -80;
-	wait1Msec(2000);
+	wait1Msec(3000);
 	motor[mobileLift] = 0;
 
 	//Move towards Mobile Goal
 	moveForward(-127);
-	wait1Msec(3000);
+	wait1Msec(1300);
 	moveForward(0);
 
 	//Put PreLoad on Mobile Lift
@@ -66,7 +95,7 @@ task main()
 
 	//Move Back to Zone
 	moveForward(127);
-	wait1Msec(3000);
+	wait1Msec(1000);
 	moveForward(0);
 
 	//Turn to position in Zone
@@ -78,11 +107,12 @@ task main()
 
 	//Lower Stacked Cone
 	motor[mobileLift] = -80;
-	wait1Msec(2000);
+	wait1Msec(3000);
 	motor[mobileLift] = 0;
 
 	//Move Back
 	moveForward(-127);
 	wait1Msec(2000);
 	moveForward(0);
+	*/
 }
