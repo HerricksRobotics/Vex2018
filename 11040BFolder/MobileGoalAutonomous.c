@@ -31,6 +31,7 @@ task main()
 	int grabberSpeed;
 	int mobileSpeed;
 
+	/*
 	//Close Pincher
 	motor[frontMotor] = 127;
 	wait1MSec(1000);
@@ -39,8 +40,8 @@ task main()
 	wait1Msec(2000);
 	liftArm(0);
 	motor[frontMotor] = 0;
+	*/
 
-	/*
 	//Move Forward a bit
 	moveForward(-127);
 	wait1Msec(700);
@@ -48,7 +49,7 @@ task main()
 
 	//Lift Backward
 	liftArm(-80);
-	wait1Msec(4000);
+	wait1Msec(1400);
 	liftArm(0);
 
 	//Open Grabber
@@ -58,26 +59,25 @@ task main()
 
 	//Move into Preload and Grab It
 	moveForward(60);
-	wait1Msec(800);
+	wait1Msec(700);
 	moveForward(0);
 	motor[frontMotor] = 30;
-	wait1Msec(1000);
-	motor[frontMotor] = 0;
+
 	//Lower Mobile Lift
-	motor[mobileLift] = -80;
-	wait1Msec(3000);
+	motor[mobileLift] = -127;
+	wait1Msec(3500);
 	motor[mobileLift] = 0;
 
 	//Move towards Mobile Goal
 	moveForward(-127);
-	wait1Msec(1300);
+	wait1Msec(1700);
 	moveForward(0);
 
 	//Put PreLoad on Mobile Lift
 	liftArm(-80);
 	wait1Msec(2000);
 	liftArm(0);
-
+	/*
 	//Open Pincher
 	motor[frontMotor] = -127;
 	wait1Msec(1500);
