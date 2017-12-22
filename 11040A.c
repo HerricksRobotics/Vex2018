@@ -78,8 +78,6 @@ task main()
 					Pressing Button 6U should bring the mobile goal carrier up
 					Pressing Button 6D should bring the mobile goal carrier down
 			*/
-
-
 			armLiftCtrl = (vexRT[Btn6U] << 1) + vexRT[Btn6D];
 			switch (armLiftCtrl) {
 				case 1:
