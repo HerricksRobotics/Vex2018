@@ -78,51 +78,9 @@ void pre_auton()
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
-
-void moveForward(int speed) {
-	motor[leftDrive] = speed;
-	motor[rightDrive] = speed;
-}
-void liftFixedArm(int speed) {
-	motor[leftArmFix] = speed;
-	motor[rightArmFix] = speed;
-}
-void liftLiftArm(int speed) {
-	motor[leftLift] = speed;
-	motor[rightLift] = speed;
-}
 task autonomous()
 {
-  // ..........................................................................
-  // Insert user code here./*
-  // THIS IS WHERE THAT 20-SEC AUTONOMOUS CODING GOES INTO!!!!!!!!!!
-  //DONT JUST COPY AND PASTE!! CHECK FOR SYNTAX AND LOGIC ERRORS!!!!!!
 
-
-  // ..........................................................................
-
-  // Remove this function call once you have "real" code.
-	liftFixedArm(80);
-	wait1Msec(2500);
-	liftFixedArm(0);
-	liftLiftArm(80);
-	wait1Msec(1200);
-	liftLiftArm(0);
-  moveForward(30);
-  wait1Msec(1400);
-  moveForward(0);
-  liftLiftArm(-80);
-  wait1Msec(1200);
-  motor[grabber]=-80;
-  wait1Msec(500);
-  motor[grabber]=0;
-  liftLiftArm(0);
-  liftLiftArm(80);
-  wait1Msec(1200);
-  liftLiftArm(0);
-  moveForward(-30);
-  wait1Msec(1400);
-  moveForward(0);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -136,12 +94,15 @@ task autonomous()
 /*---------------------------------------------------------------------------*/
 
 
+
 void leftDrive(short speed)
 {
 	motor[leftFront] = speed;
 	motor[leftMid] = speed;
 	motor[leftBack] = speed;
+	motor[leftBBack] = speed;
 }
+
 
 
 void rightDrive(short speed)
@@ -149,15 +110,8 @@ void rightDrive(short speed)
 	motor[rightFront] = speed;
 	motor[rightMid] = speed;
 	motor[rightBack] = speed;
+	motor[rightBBack] = speed;
 }
-
-
-void armDrive(short speed)
-{
-	motor[leftLift] = speed;
-	motor[rightLift] = speed;
-}
-
 
 
 
@@ -202,20 +156,18 @@ task usercontrol()
 					Pressing Button 6U should bring the mobile goal carrier up
 					Pressing Button 6D should bring the mobile goal carrier down
 			*/
-
-
 			armLiftCtrl = (vexRT[Btn6U] << 1) + vexRT[Btn6D];
 			switch (armLiftCtrl) {
 				case 1:
-					armDrive(127);
+					motor[liftArms] = -127;
 					break;
 
 				case 2:
-					armDrive(127);
+					motor[liftArms] = 127;
 					break;
 
 				default:
-					armDrive(0);
+					motor[liftArms] = 0;
 					break;
 
 			}
