@@ -153,8 +153,8 @@ task usercontrol()
 
 			/*				!!!		MOBILE GOAL CARRIER CONTROLS		!!!
 
-					Pressing Button 6U should bring the mobile goal carrier up
-					Pressing Button 6D should bring the mobile goal carrier down
+					Pressing Button 6U should bring the mobile goal carrier in
+					Pressing Button 6D should bring the mobile goal carrier out
 			*/
 			armLiftCtrl = (vexRT[Btn6U] << 1) + vexRT[Btn6D];
 			switch (armLiftCtrl) {

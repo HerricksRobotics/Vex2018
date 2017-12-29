@@ -1,8 +1,16 @@
-#pragma config(Sensor, in3,    gyro,           sensorGyro)
+#pragma config(Sensor, in1,    armLift,        sensorPotentiometer)
+#pragma config(Sensor, in2,    gyro,           sensorGyro)
 #pragma config(Sensor, dgtl1,  leftEncoder,    sensorQuadEncoder)
 #pragma config(Sensor, dgtl3,  rightEncoder,   sensorQuadEncoder)
-#pragma config(Motor,  port1,           leftDrive,     tmotorVex393_HBridge, openLoop)
-#pragma config(Motor,  port3,           rightDrive,    tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port1,           rightFront,    tmotorVex393_HBridge, openLoop, reversed)
+#pragma config(Motor,  port3,           rightMid,      tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port4,           rightBack,     tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           rightBBack,    tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           liftArms,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port7,           leftBBack,     tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port8,           leftBack,      tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port9,           leftMid,       tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port10,          leftFront,     tmotorVex393_HBridge, openLoop, reversed)
 
 //This class is purely for calculating the robot's position relative to the playing area
 
@@ -24,7 +32,7 @@ void location()
 
     z = degreesToRadians(sensorValue[gyro]);              //gyro outputs degrees... gotta change it to rad
 
-                                              
+
 
     leftDistance = 4 * PI * (sensorValue[leftEncoder]/360);
     rightDistance = 4 * PI * (sensorValue[rightEncoder]/360);
@@ -83,6 +91,28 @@ void gps()
 
 }
 
+
+//just to move robot
+void leftDrive(short speed)
+{
+	motor[leftFront] = speed;
+	motor[leftMid] = speed;
+	motor[leftBack] = speed;
+	motor[leftBBack] = speed;
+}
+
+
+void rightDrive(short speed)
+{
+	motor[rightFront] = speed;
+	motor[rightMid] = speed;
+	motor[rightBack] = speed;
+	motor[rightBBack] = speed;
+}
+
+
+
+
 task main()
 {
   //First, have to recalibrate Gyro
@@ -101,7 +131,7 @@ task main()
 
   while(true)
   {
-    /*				!!!		DRIVE CONTROLS		!!!        */
+    /*				!!!		DRIVE CONTROLS		!!!
     //To control the left side using channel 3
     if (vexRT[Ch3] > -35 && vexRT[Ch3] < 35)
     {
@@ -123,6 +153,9 @@ task main()
     }
     motor[leftDrive] = leftSpeed;
     motor[rightDrive] = rightSpeed;
+    */
+
+
 
     gps();
   }

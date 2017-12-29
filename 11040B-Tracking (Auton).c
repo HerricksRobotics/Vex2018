@@ -1,8 +1,16 @@
-#pragma config(Sensor, in3,    gyro,           sensorGyro)
+#pragma config(Sensor, in1,    liftAngle,      sensorPotentiometer)
+#pragma config(Sensor, in2,    gyro,           sensorGyro)
 #pragma config(Sensor, dgtl1,  leftEncoder,    sensorQuadEncoder)
 #pragma config(Sensor, dgtl3,  rightEncoder,   sensorQuadEncoder)
-#pragma config(Motor,  port1,           leftDrive,     tmotorVex393_HBridge, openLoop)
-#pragma config(Motor,  port3,           rightDrive,    tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port1,           leftFront,     tmotorVex393HighSpeed_HBridge, openLoop, reversed)
+#pragma config(Motor,  port2,           leftBack,      tmotorVex393HighSpeed_MC29, openLoop)
+#pragma config(Motor,  port3,           rightFront,    tmotorVex393HighSpeed_MC29, openLoop)
+#pragma config(Motor,  port4,           rightBack,     tmotorVex393HighSpeed_MC29, openLoop, reversed)
+#pragma config(Motor,  port5,           rightArmT,     tmotorVex393HighSpeed_MC29, openLoop)
+#pragma config(Motor,  port6,           leftArmT,      tmotorVex393HighSpeed_MC29, openLoop, reversed)
+#pragma config(Motor,  port7,           frontMotor,    tmotorVex393HighSpeed_MC29, openLoop)
+#pragma config(Motor,  port8,           rightArmB,     tmotorVex393HighSpeed_MC29, openLoop)
+#pragma config(Motor,  port9,           leftArmB,      tmotorVex393HighSpeed_MC29, openLoop)
 
 //This class is purely for calculating the robot's position relative to the playing area
 
@@ -24,7 +32,7 @@ void location()
 
     z = degreesToRadians(sensorValue[gyro]);              //gyro outputs degrees... gotta change it to rad
 
-                                              
+
 
     leftDistance = 4 * PI * (sensorValue[leftEncoder]/360);
     rightDistance = 4 * PI * (sensorValue[rightEncoder]/360);
