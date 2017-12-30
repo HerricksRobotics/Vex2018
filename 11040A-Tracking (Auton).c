@@ -168,6 +168,7 @@ task main()
   {
     /*				!!!		DRIVE CONTROLS		!!!
     //To control the left side using channel 3
+    */
     if (vexRT[Ch3] > -35 && vexRT[Ch3] < 35)
     {
       leftSpeed = 0;
@@ -188,8 +189,14 @@ task main()
     }
     motor[leftDrive] = leftSpeed;
     motor[rightDrive] = rightSpeed;
-    */
 
+
+    //if Button 7R is pressed, robot should return to its starting position facing in the
+    // same direction
+    if (vexRT[Btn7R] == 1)
+    {
+      //return to origin position
+    }
 
 
     gps();

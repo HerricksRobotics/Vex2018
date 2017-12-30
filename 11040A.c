@@ -100,5 +100,20 @@ task main()
 				motor[liftArms] = 0;
 			}
 
+
+
+
+			//light control (if getting one... VEX inverse the controls... idk y)
+			//turning light on (0 = on)
+			if (vexRT[Btn7R] == 1)
+			{
+
+			}
+			//turning light off (1 = off)
+			else if (vexRT[Btn8L] == 1)
+			{
+
+			}
+
 		}
 }
