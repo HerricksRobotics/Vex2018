@@ -85,12 +85,6 @@ void gps()
 }
 
 
-//Main method of the heavy work... hopefully
-void gps()
-{
-
-}
-
 
 //just to move robot
 void leftDrive(short speed)
@@ -111,6 +105,37 @@ void rightDrive(short speed)
 }
 
 
+
+//Arm Controls with Drive Controls
+//CHANGE BC THIS IS SLOW AF
+void extendArm(short leftSpeed, short rightSpeed)
+{
+  if (SensorValue[armLift] > 465)
+  {
+    motor[liftArms] = 127;
+  }
+  else
+  {
+    motor[liftArms] = 0;
+    leftDrive(leftSpeed);
+    rightDrive(rightSpeed);
+  }
+}
+
+void contractArm(short leftSpeed, short rightSpeed)
+{
+  if (SensorValue[armLift] < 2110)
+  {
+    motor[liftArms] = -127;
+  }
+  else
+  {
+    motor[liftArms] = 0;
+    leftDrive(leftSpeed);
+    rightDrive(rightSpeed);
+  }
+
+}
 
 
 task main()
