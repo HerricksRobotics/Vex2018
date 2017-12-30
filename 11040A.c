@@ -1,5 +1,6 @@
 #pragma config(Sensor, in1,    armLift,        sensorPotentiometer)
 #pragma config(Sensor, in2,    gyro,           sensorGyro)
+#pragma config(Sensor, in3,    lights,           sensorGyro)
 #pragma config(Sensor, dgtl1,  leftEncoder,    sensorQuadEncoder)
 #pragma config(Sensor, dgtl3,  rightEncoder,   sensorQuadEncoder)
 #pragma config(Motor,  port1,           rightFront,    tmotorVex393_HBridge, openLoop, reversed)
@@ -107,12 +108,12 @@ task main()
 			//turning light on (0 = on)
 			if (vexRT[Btn7R] == 1)
 			{
-
+				SensorValue[lights] = 0;
 			}
 			//turning light off (1 = off)
 			else if (vexRT[Btn8L] == 1)
 			{
-
+				SensorValue[lights] = 1;
 			}
 
 		}
