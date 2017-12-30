@@ -39,7 +39,6 @@ task main()
 {
 	short leftSpeed;
 	short rightSpeed;
-	short armLiftCtrl;
 
 	SensorType[in2] = sensorNone;
 	wait1Msec(1000);
@@ -87,10 +86,7 @@ task main()
 
 					When contracted, pot = 2102 - 2110
 					When extended, pot = 464 - 465
-
-
 			*/
-
 			if(vexRT[Btn6U] == 1 && SensorValue[armLift] <2110)
 			{
 				motor[liftArms] = 127;

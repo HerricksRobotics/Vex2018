@@ -120,7 +120,6 @@ task usercontrol()
 
 	short leftSpeed;
 	short rightSpeed;
-	short armLiftCtrl;
 
 	while(true)
 	{
@@ -155,21 +154,21 @@ task usercontrol()
 
 					Pressing Button 6U should bring the mobile goal carrier in
 					Pressing Button 6D should bring the mobile goal carrier out
+
+					When contracted, pot = 2102 - 2110
+					When extended, pot = 464 - 465
 			*/
-			armLiftCtrl = (vexRT[Btn6U] << 1) + vexRT[Btn6D];
-			switch (armLiftCtrl) {
-				case 1:
-					motor[liftArms] = -127;
-					break;
-
-				case 2:
-					motor[liftArms] = 127;
-					break;
-
-				default:
-					motor[liftArms] = 0;
-					break;
-
+			if(vexRT[Btn6U] == 1 && SensorValue[armLift] <2110)
+			{
+				motor[liftArms] = 127;
+			}
+			else if(vexRT[Btn6D] == 1 && SensorValue[armLift] > 465)
+			{
+				motor[liftArms] = -127;
+			}
+			else
+			{
+				motor[liftArms] = 0;
 			}
 		}
   }
