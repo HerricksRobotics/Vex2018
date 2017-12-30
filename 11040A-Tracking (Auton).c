@@ -57,11 +57,14 @@ void location()
 }
 
 
+
 //calculating the distance from the starting position
 float distance()
 {
   return sqrt(pow(changeInX,2) + pow(changeInY,2);
 }
+
+
 
 float angle()
 {
@@ -70,11 +73,15 @@ float angle()
 }
 
 
+
 //calculating the quickest distance to the target location and movoing there
 void targetLocation()
 {
 
 }
+
+
+
 
 /*
       THE MAIN BRAINS
@@ -86,7 +93,10 @@ void gps()
 
 
 
-//just to move robot
+//***************************************************************************************************************
+//Movements for Robot
+
+
 void leftDrive(short speed)
 {
 	motor[leftFront] = speed;
