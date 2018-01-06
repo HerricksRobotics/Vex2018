@@ -27,13 +27,10 @@ task main()
 {
 	int leftSpeed;
 	int rightSpeed;
-
 	int armBaseSpeed;
-
 	int grabberSpeed;
-
 	int mobileSpeed;
-
+	
 	////AUTONOMOUS////
 	//Push Yellow Cone back a bit
 	moveForward(-50);
@@ -55,133 +52,68 @@ task main()
 	motor[frontMotor] = 30;
 	wait1Msec(1000);
 	motor[frontMotor] = 0;
-	
 	while (true)
-
 	{
-
 		//Controls Right Front Wheel
-
-		if (vexRT[Ch2] > -35 && vexRT[Ch2] < 35)
-
-		{
-
-			rightSpeed = 0;
-
-		}
-
-		else
-
-		{
-
-			rightSpeed = vexRT[Ch2];
-
-		}
-
-		//Controls Left Front Wheel
-
 		if (vexRT[Ch3] > -35 && vexRT[Ch3] < 35)
-
 		{
-
-			leftSpeed = 0;
-
+			rightSpeed = 0;
 		}
-
 		else
-
 		{
-
-			leftSpeed = vexRT[Ch3];
-
+			rightSpeed = vexRT[Ch3];
 		}
-
+		//Controls Left Front Wheel
+		if (vexRT[Ch2] > -35 && vexRT[Ch2] < 35)
+		{
+			leftSpeed = 0;
+		}
+		else
+		{
+			leftSpeed = vexRT[Ch2];
+		}
 		//Controls arm movement
-
 		if (vexRT[Btn6UXmtr2]==1) {
-
 			armBaseSpeed = -60;
-
 			grabberSpeed = 0;
-
 		}
-
 		else if (vexRT[Btn6DXmtr2]==1) {
-
 			armBaseSpeed = 60;
-
 			//grabberSpeed = -30;
-
 		}
-
 		else {
-
 			armBaseSpeed = 0;
-
 			grabberSpeed = 0;
-
 		}
-
 		//Controls pinchers movement
-
 		if (vexRT[Btn8UXmtr2]==1)
-
 		{
-
 			grabberSpeed = 30;
-
 		}
-
 		else if (vexRT[Btn8DXmtr2]==1)
-
 		{
-
 			grabberSpeed = -30;
-
 		}
-
 		else {
-
 			grabberSpeed = 0;
-
 		}
-
 		if (vexRT[Btn5UXmtr2]==1) {
-
 			mobileSpeed = 127;
-
 		}
-
 		else if (vexRT[Btn5DXmtr2]==1) {
-
 			mobileSpeed = -127;
-
 		}
-
 		else {
-
 			mobileSpeed = 0;
-
 		}
-
 		motor[leftFront] = leftSpeed;
-
 		motor[leftBack] = leftSpeed;
-
 		motor[rightFront] = rightSpeed;
-
 		motor[rightBack] = rightSpeed;
-
 		motor[rightArm] = armBaseSpeed;
-
 		motor[leftArm] = armBaseSpeed;
-
 		motor[frontMotor] = grabberSpeed;
-
 		motor[mobileLift] = mobileSpeed;
-
 		motor[mobileLift2] = mobileSpeed;
-
 	}
-
 }
