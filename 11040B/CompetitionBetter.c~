@@ -85,16 +85,16 @@ task autonomous()
 	//STOP
 	moveForward(0);
 	//Lift Preload
-	liftArm(-80);
-	wait1Msec(4000);
-	//STOP
-	liftArm(0);
-	motor[frontMotor] = -127;
-	wait1Msec(4000);
-	//STOP
-	liftArm(80);
-	wait1Msec(2000);
-	liftArm(0);
+  liftArm(-80);
+  wait1Msec(4000);
+  //STOP
+  liftArm(0);
+  motor[frontMotor] = -127;
+  wait1Msec(4000);
+  //STOP
+  liftArm(80);
+  wait1Msec(2000);
+  liftArm(0);
 }
 
 /*---------------------------------------------------------------------------*/
