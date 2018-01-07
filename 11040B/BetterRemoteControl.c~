@@ -36,25 +36,17 @@ task main()
 	moveForward(0);
 	//Move forward a bit
 	moveForward(50);
-	wait1Msec(800);
 	wait1Msec(1000);
 	moveForward(0);
 	//Move Arm back for Preload
 	liftArm(-80);
 	wait1Msec(1000);
 	liftArm(0);
-	//Open Pincher
-	motor[frontMotor] = -30;
-	wait1Msec(1000);
 	//Open Pincher and move into yellow cone
-	motor[frontMotor] = -30;
+	motor[frontMotor] = -127;
 	moveForward(-50);
 	wait1Msec(200);
 	moveForward(0);
-	motor[frontMotor] = 0;
-	//Close Pincher
-	motor[frontMotor] = 30;
-	wait1Msec(1000);
 	motor[frontMotor] = 0;
 	//Move Forward Towards Mobile Goal
 	moveForward(80);
