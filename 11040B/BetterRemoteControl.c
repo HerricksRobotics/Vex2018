@@ -22,6 +22,10 @@ void liftArm(int speed) {
 	motor[rightArm] = speed;
 }
 
+void liftMobileArm(int speed) {
+  motor[mobileLift] = speed;
+  motor[mobileLift2] = speed;
+}
 //Code for VEX 11040B
 task main()
 {
@@ -30,29 +34,36 @@ task main()
 	int armBaseSpeed;
 	int grabberSpeed;
 	int mobileSpeed;
-	//Push Yellow Cone back a bit
-	moveForward(-50);
-	wait1Msec(800);
-	moveForward(0);
-	//Move forward a bit
-	moveForward(50);
-	wait1Msec(1500);
-	moveForward(0);
 	//Move Arm back for Preload
 	liftArm(-60);
 	wait1Msec(1000);
 	liftArm(0);
-	//Open Pincher and move into yellow cone
-	motor[frontMotor] = -127;
-	moveForward(-50);
-	wait1Msec(700);
-	moveForward(0);
-	motor[frontMotor] = 0;
+	
+	//Lower Mobile Goal Lift
+	liftMobileArm(127);
+	wait1Msec(800);
+	liftMobileArm(0);
+
 	//Move Forward Towards Mobile Goal
 	moveForward(80);
-	wait1Msec(3000);
+	wait1Msec(2000);
 	moveForward(0);
-	//Stop
+	
+	//Raise Mobile Goal Lift
+	liftMobileArm(-127);
+	wait1Msec(800);
+	liftMobileArm(0);
+	
+	//Stack Preload
+	liftArm(60);
+	wait1Msec(1000);
+	liftArm(0);
+	
+	//Move Backward
+	moveForward(-80);
+	wait1Msec(2000);
+	moveForward(0);
+	
 	while (true)
 	{
 		//Controls Right Front Wheel
