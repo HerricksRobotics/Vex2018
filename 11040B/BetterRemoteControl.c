@@ -39,7 +39,7 @@ task main()
 	wait1Msec(1500);
 	moveForward(0);
 	//Move Arm back for Preload
-	liftArm(-80);
+	liftArm(-60);
 	wait1Msec(1000);
 	liftArm(0);
 	//Open Pincher and move into yellow cone
