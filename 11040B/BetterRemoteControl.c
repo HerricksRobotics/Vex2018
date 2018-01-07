@@ -34,6 +34,8 @@ task main()
 	int armBaseSpeed;
 	int grabberSpeed;
 	int mobileSpeed;
+	//Keep Grabber on the whole time
+	motor[frontMotor] = 127;
 	//Move Arm back for Preload
 	liftArm(-60);
 	wait1Msec(1000);
