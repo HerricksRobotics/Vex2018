@@ -49,8 +49,8 @@ task main()
 	short mobileDist = 1800;
 	
 	//Lower Lift
-	motor[liftArms] = -127;
-	wait1Msec(1000);
+	motor[liftArms] = -60;
+	wait1Msec(900);
 	motor[liftArms] = 0;
 	
 	//Move Forward
@@ -66,8 +66,8 @@ task main()
 	}
 	
 	//Lift Mobile Goal
-	motor[liftArms] = 127;
-	wait1Msec(1000);
+	motor[liftArms] = 60;
+	wait1Msec(900);
 	motor[liftArms] = 0;
 	
 	//Move Backward

@@ -45,38 +45,6 @@ task main()
 
 	SensorValue[rightEncoder] = 0;
 	SensorValue[leftEncoder] = 0;
-<<<<<<< HEAD
-	int mobileDist = 1800;
-
-	////AUTONOMOUS////
-	motor[liftArms] = -60;
-	wait1Msec(900);
-	motor[liftArms] = 0;
-	while (SensorValue[rightEncoder] < mobileDist || SensorValue[leftEncoder] < mobileDist) {
-		if (SensorValue[rightEncoder] > SensorValue[leftEncoder]) {
-			leftDrive(127);
-			rightDrive(0);
-		}
-		else if (SensorValue[rightEncoder] < SensorValue[leftEncoder]){
-			leftDrive(127);
-			rightDrive(127);
-		}
-	}
-	motor[liftArms] = 60;
-	wait1Msec(900);
-	motor[liftArms] = 0;
-	while (SensorValue[rightEncoder] < mobileDist || SensorValue[leftEncoder] < mobileDist) {
-		if (SensorValue[rightEncoder] > SensorValue[leftEncoder]) {
-			leftDrive(-127);
-			rightDrive(0);
-		}
-		else if (SensorValue[rightEncoder] < SensorValue[leftEncoder]){
-			leftDrive(-127);
-			rightDrive(-127);
-		}
-	}
-=======
->>>>>>> 7e53bf855819118a858bf4a6f154861c9db8f9dc
 
 	while(true)
 	{

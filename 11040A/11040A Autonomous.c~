@@ -45,65 +45,41 @@ task main()
 
 	SensorValue[rightEncoder] = 0;
 	SensorValue[leftEncoder] = 0;
-
-	while(true)
-	{
-		/*				!!!		DRIVE CONTROLS		!!!
-		*/
-		//To control the left side using channel 3
-		if (vexRT[Ch3] > -35 && vexRT[Ch3] < 35)
-		{
-			leftSpeed = 0;
-		}
-		else
-		{
-			leftSpeed = vexRT[Ch3];
-		}
-
-		//To control the right side using channel 2
-		if (vexRT[Ch2] > -35 && vexRT[Ch2] < 35)
-		{
-			rightSpeed = 0;
-		}
-		else
-		{
-			rightSpeed = vexRT[Ch2];
-		}
-
-		leftDrive(leftSpeed);
-		rightDrive(rightSpeed);
-
-		/*				!!!		MOBILE GOAL CARRIER CONTROLS		!!!
-
-		Pressing Button 6U should bring the mobile goal carrier in
-		Pressing Button 6D should bring the mobile goal carrier out
-
-		When contracted, pot = 2102 - 2110
-		When extended, pot = 464 - 465
-		*/
-		if(vexRT[Btn6U] == 1 && SensorValue[armLift] <2110)
-		{
-			motor[liftArms] = 127;
-		}
-		else if(vexRT[Btn6D] == 1 && SensorValue[armLift] > 465)
-		{
-			motor[liftArms] = -127;
-		}
-		else
-		{
-			motor[liftArms] = 0;
-		}
-
-		//light control (if getting one... VEX inverse the controls... idk y)
-		//turning light on (0 = on)
-		if (vexRT[Btn7R] == 1)
-		{
-			SensorValue[lights] = 0;
-		}
-		//turning light off (1 = off)
-		else if (vexRT[Btn8L] == 1)
-		{
-			SensorValue[lights] = 1;
-		}
+	
+	short mobileDist = 1800;
+	
+	//Lower Lift
+	motor[liftArms] = -127;
+	wait1Msec(1000);
+	motor[liftArms] = 0;
+	
+	//Move Forward
+	while (SensorValue[rightEncoder] < mobileDist || SensorValue[leftEncoder] < mobileDist) {
+	  if (SensorValue[rightEncoder] > SensorValue[leftEncoder]) {
+	    leftDrive(100);
+	    rightDrive(0);
+	  }
+	  else {
+	    leftDrive(100);
+	    rightDrive(100);
+	  }
 	}
+	
+	//Lift Mobile Goal
+	motor[liftArms] = 127;
+	wait1Msec(1000);
+	motor[liftArms] = 0;
+	
+	//Move Backward
+	while (SensorValue[rightEncoder] < mobileDist || SensorValue[leftEncoder] < mobileDist) {
+          if (SensorValue[rightEncoder] > SensorValue[leftEncoder]) {
+            leftDrive(-100);
+            rightDrive(0);
+          }
+          else {
+            leftDrive(-100);
+            rightDrive(-100);
+          }
+        }
+	
 }
