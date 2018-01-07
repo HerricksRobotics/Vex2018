@@ -34,8 +34,6 @@ void rightDrive(short speed)
 	motor[rightBBack] = speed;
 }
 
-
-
 task main()
 {
 	short leftSpeed;
@@ -49,7 +47,35 @@ task main()
 
 	SensorValue[rightEncoder] = 0;
 	SensorValue[leftEncoder] = 0;
+	int mobileDist = 1800;
 
+	////AUTONOMOUS////
+	motor[liftArms] = -60;
+	wait1Msec(900);
+	motor[liftArms] = 0;
+	while (SensorValue[rightEncoder] < mobileDist || SensorValue[leftEncoder] < mobileDist) {
+		if (SensorValue[rightEncoder] > SensorValue[leftEncoder]) {
+			leftDrive(127);
+			rightDrive(0);
+		}
+		else if (SensorValue[rightEncoder] < SensorValue[leftEncoder]){
+			leftDrive(127);
+			rightDrive(127);
+		}
+	}
+	motor[liftArms] = 60;
+	wait1Msec(900);
+	motor[liftArms] = 0;
+	while (SensorValue[rightEncoder] < mobileDist || SensorValue[leftEncoder] < mobileDist) {
+		if (SensorValue[rightEncoder] > SensorValue[leftEncoder]) {
+			leftDrive(-127);
+			rightDrive(0);
+		}
+		else if (SensorValue[rightEncoder] < SensorValue[leftEncoder]){
+			leftDrive(-127);
+			rightDrive(-127);
+		}
+	}
 
 	while(true)
 	{
@@ -88,11 +114,11 @@ task main()
 		When contracted, pot = 2102 - 2110
 		When extended, pot = 464 - 465
 		*/
-		if(vexRT[Btn6U] == 1 && SensorValue[armLift] <2110)
+		if(vexRT[Btn6U] == 1 /*&& SensorValue[armLift] <2110*/)
 		{
 			motor[liftArms] = 127;
 		}
-		else if(vexRT[Btn6D] == 1 && SensorValue[armLift] > 465)
+		else if(vexRT[Btn6D] == 1 /*&& SensorValue[armLift] > 465*/)
 		{
 			motor[liftArms] = -127;
 		}
