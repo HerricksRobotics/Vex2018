@@ -16,6 +16,7 @@
 
 // RC CODE FOR THE NEW VEX ROBOT 11040A 8-MOTOR DRIVE
 
+
 void leftDrive(short speed)
 {
 	motor[leftFront] = speed;
@@ -24,6 +25,7 @@ void leftDrive(short speed)
 	motor[leftBBack] = speed;
 }
 
+
 void rightDrive(short speed)
 {
 	motor[rightFront] = speed;
@@ -31,6 +33,8 @@ void rightDrive(short speed)
 	motor[rightBack] = speed;
 	motor[rightBBack] = speed;
 }
+
+
 
 task main()
 {
@@ -45,38 +49,7 @@ task main()
 
 	SensorValue[rightEncoder] = 0;
 	SensorValue[leftEncoder] = 0;
-<<<<<<< HEAD
-	int mobileDist = 1800;
 
-	////AUTONOMOUS////
-	motor[liftArms] = -60;
-	wait1Msec(900);
-	motor[liftArms] = 0;
-	while (SensorValue[rightEncoder] < mobileDist || SensorValue[leftEncoder] < mobileDist) {
-		if (SensorValue[rightEncoder] > SensorValue[leftEncoder]) {
-			leftDrive(127);
-			rightDrive(0);
-		}
-		else if (SensorValue[rightEncoder] < SensorValue[leftEncoder]){
-			leftDrive(127);
-			rightDrive(127);
-		}
-	}
-	motor[liftArms] = 60;
-	wait1Msec(900);
-	motor[liftArms] = 0;
-	while (SensorValue[rightEncoder] < mobileDist || SensorValue[leftEncoder] < mobileDist) {
-		if (SensorValue[rightEncoder] > SensorValue[leftEncoder]) {
-			leftDrive(-127);
-			rightDrive(0);
-		}
-		else if (SensorValue[rightEncoder] < SensorValue[leftEncoder]){
-			leftDrive(-127);
-			rightDrive(-127);
-		}
-	}
-=======
->>>>>>> 7e53bf855819118a858bf4a6f154861c9db8f9dc
 
 	while(true)
 	{
@@ -105,6 +78,8 @@ task main()
 		leftDrive(leftSpeed);
 		rightDrive(rightSpeed);
 
+
+
 		/*				!!!		MOBILE GOAL CARRIER CONTROLS		!!!
 
 		Pressing Button 6U should bring the mobile goal carrier in
@@ -113,11 +88,11 @@ task main()
 		When contracted, pot = 2102 - 2110
 		When extended, pot = 464 - 465
 		*/
-		if(vexRT[Btn6U] == 1 /*&& SensorValue[armLift] <2110*/)
+		if(vexRT[Btn6U] == 1 && SensorValue[armLift] <2110)
 		{
 			motor[liftArms] = 127;
 		}
-		else if(vexRT[Btn6D] == 1 /*&& SensorValue[armLift] > 465*/)
+		else if(vexRT[Btn6D] == 1 && SensorValue[armLift] > 465)
 		{
 			motor[liftArms] = -127;
 		}
@@ -125,6 +100,9 @@ task main()
 		{
 			motor[liftArms] = 0;
 		}
+
+
+
 
 		//light control (if getting one... VEX inverse the controls... idk y)
 		//turning light on (0 = on)
@@ -137,5 +115,6 @@ task main()
 		{
 			SensorValue[lights] = 1;
 		}
+
 	}
 }

@@ -26,14 +26,14 @@ void armDown(int speed)
 	}
 
 void pinchOpen(int speed)
-{
-  motor[frontMotor] = -speed;
-}
+	{
+		motor[frontMotor] = -speed;
+	}
 
 void pinchClose(int speed)
-{
-  motor[frontMotor] = speed;
-}
+	{
+		motor[frontMotor] = speed;
+	}
 
 task main()
 {
