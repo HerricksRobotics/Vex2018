@@ -89,11 +89,11 @@ task main()
 		//Controls pinchers movement
 		if (vexRT[Btn8UXmtr2]==1)
 		{
-			grabberSpeed = 30;
+			grabberSpeed = 127;
 		}
 		else if (vexRT[Btn8DXmtr2]==1)
 		{
-			grabberSpeed = -30;
+			grabberSpeed = -127;
 		}
 		else {
 			grabberSpeed = 0;
