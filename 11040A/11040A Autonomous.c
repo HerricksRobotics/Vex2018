@@ -45,41 +45,36 @@ task main()
 
 	SensorValue[rightEncoder] = 0;
 	SensorValue[leftEncoder] = 0;
-	
-	short mobileDist = 1800;
-	
+
+	short mobileDist = 1200;
+
 	//Lower Lift
 	motor[liftArms] = -60;
 	wait1Msec(900);
 	motor[liftArms] = 0;
-	
 	//Move Forward
-	while (SensorValue[rightEncoder] < mobileDist || SensorValue[leftEncoder] < mobileDist) {
-	  if (SensorValue[rightEncoder] > SensorValue[leftEncoder]) {
-	    leftDrive(100);
-	    rightDrive(0);
-	  }
-	  else {
-	    leftDrive(100);
-	    rightDrive(100);
-	  }
-	}
-	
+	leftDrive(127);
+	rightDrive(127);
+	wait1Msec(1250);
+	leftDrive(0);
+	rightDrive(0);
 	//Lift Mobile Goal
 	motor[liftArms] = 60;
 	wait1Msec(900);
 	motor[liftArms] = 0;
-	
 	//Move Backward
-	while (SensorValue[rightEncoder] < mobileDist || SensorValue[leftEncoder] < mobileDist) {
-          if (SensorValue[rightEncoder] > SensorValue[leftEncoder]) {
-            leftDrive(-100);
-            rightDrive(0);
-          }
-          else {
-            leftDrive(-100);
-            rightDrive(-100);
-          }
-        }
-	
+	leftDrive(-127);
+	rightDrive(-127);
+	wait1Msec(1250);
+	leftDrive(0);
+	rightDrive(0);
+	while (abs(SensorValue[gyro]) < 1350) {
+		rightDrive(100);
+		leftDrive(0);
+	}
+	leftDrive(127);
+	rightDrive(127);
+	wait1Msec(1500);
+	leftDrive(0);
+	rightDrive(0);
 }

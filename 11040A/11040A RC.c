@@ -37,6 +37,7 @@ task main()
 	short leftSpeed;
 	short rightSpeed;
 
+
 	SensorType[in2] = sensorNone;
 	wait1Msec(1000);
 	SensorType[in2] = sensorGyro;

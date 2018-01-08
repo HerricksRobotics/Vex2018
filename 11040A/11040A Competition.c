@@ -18,6 +18,7 @@
 // 			!!!			VEX 11040A		!!!
 // 			!!!			VEX 11040A		!!!
 
+
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
 /*        Description: Competition template for VEX EDR                      */
@@ -45,9 +46,9 @@
 
 void pre_auton()
 {
-  // Set bStopTasksBetweenModes to false if you want to keep user created tasks
-  // running between Autonomous and Driver controlled modes. You will need to
-  // manage all user created tasks if set to false.
+	// Set bStopTasksBetweenModes to false if you want to keep user created tasks
+	// running between Autonomous and Driver controlled modes. You will need to
+	// manage all user created tasks if set to false.
 
 	SensorType[in3] = sensorNone;
 	wait1Msec(1000);
@@ -58,15 +59,31 @@ void pre_auton()
 	SensorValue[rightEncoder] = 0;
 	SensorValue[leftEncoder] = 0;
 
-  bStopTasksBetweenModes = false;
+	bStopTasksBetweenModes = false;
 
 	// Set bDisplayCompetitionStatusOnLcd to false if you don't want the LCD
 	// used by the competition include file, for example, you might want
 	// to display your team name on the LCD in this function.
 	// bDisplayCompetitionStatusOnLcd = false;
 
-  // All activities that occur before the competition starts
-  // Example: clearing encoders, setting servo positions, ...
+	// All activities that occur before the competition starts
+	// Example: clearing encoders, setting servo positions, ...
+}
+
+void leftDrive(short speed)
+{
+	motor[leftFront] = speed;
+	motor[leftMid] = speed;
+	motor[leftBack] = speed;
+	motor[leftBBack] = speed;
+}
+
+void rightDrive(short speed)
+{
+	motor[rightFront] = speed;
+	motor[rightMid] = speed;
+	motor[rightBack] = speed;
+	motor[rightBBack] = speed;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -80,40 +97,73 @@ void pre_auton()
 /*---------------------------------------------------------------------------*/
 task autonomous()
 {
+	/*
+	short mobileDist = 1200;
 
-}
+	//Lower Lift
+	motor[liftArms] = -60;
+	wait1Msec(900);
+	motor[liftArms] = 0;
 
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              User Control Task                            */
-/*                                                                           */
-/*  This task is used to control your robot during the user control phase of */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
+	//Move Forward
+	while (SensorValue[rightEncoder] < mobileDist || SensorValue[leftEncoder] < mobileDist) {
+		if (SensorValue[rightEncoder] > SensorValue[leftEncoder]) {
+			leftDrive(100);
+			rightDrive(0);
+		}
+		else if (SensorValue[leftEncoder] > SensorValue[rightEncoder])
+		{
+			rightDrive(100);
+			leftDrive(0);
 
+		}
+	}
+		leftDrive(0);
+		rightDrive(0);
+		//Lift Mobile Goal
+		motor[liftArms] = 60;
+		wait1Msec(900);
+		motor[liftArms] = 0;
 
+		//Move Backward
+		while (SensorValue[rightEncoder] > 800 || SensorValue[leftEncoder] > 800) {
+			if (SensorValue[rightEncoder] < SensorValue[leftEncoder]) {
+				leftDrive(-100);
+				rightDrive(0);
+			}
+			else if (SensorValue[leftEncoder] < SensorValue[rightEncoder])
+			{
+				leftDrive(0);
+				rightDrive(-100);
+			}
+			else {
+				leftDrive(-100);
+				rightDrive(-100);
+			}
+		}
+		leftDrive(0);
+		rightDrive(0);
+		while (abs(SensorValue[gyro]) < 1350) {
+			rightDrive(100);
+			leftDrive(0);
+		}
+		leftDrive(127);
+		rightDrive(127);
+		wait1Msec(1500);    //chris can suck the big d
+		leftDrive(0);
+		rightDrive(0);
+	*/
+	}
 
-void leftDrive(short speed)
-{
-	motor[leftFront] = speed;
-	motor[leftMid] = speed;
-	motor[leftBack] = speed;
-	motor[leftBBack] = speed;
-}
-
-
-
-void rightDrive(short speed)
-{
-	motor[rightFront] = speed;
-	motor[rightMid] = speed;
-	motor[rightBack] = speed;
-	motor[rightBBack] = speed;
-}
-
-
+	/*---------------------------------------------------------------------------*/
+	/*                                                                           */
+	/*                              User Control Task                            */
+	/*                                                                           */
+	/*  This task is used to control your robot during the user control phase of */
+	/*  a VEX Competition.                                                       */
+	/*                                                                           */
+	/*  You must modify the code to add your own robot specific commands here.   */
+	/*---------------------------------------------------------------------------*/
 
 task usercontrol()
 {
@@ -121,54 +171,55 @@ task usercontrol()
 	short leftSpeed;
 	short rightSpeed;
 
+
 	while(true)
 	{
-			/*				!!!		DRIVE CONTROLS		!!!
-			*/
-			//To control the left side using channel 3
-			if (vexRT[Ch3] > -35 && vexRT[Ch3] < 35)
-			{
-				leftSpeed = 0;
-			}
-			else
-			{
-				leftSpeed = vexRT[Ch3];
-			}
-
-			//To control the right side using channel 2
-			if (vexRT[Ch2] > -35 && vexRT[Ch2] < 35)
-			{
-				rightSpeed = 0;
-			}
-			else
-			{
-				rightSpeed = vexRT[Ch2];
-			}
-
-			leftDrive(leftSpeed);
-			rightDrive(rightSpeed);
-
-
-
-			/*				!!!		MOBILE GOAL CARRIER CONTROLS		!!!
-
-					Pressing Button 6U should bring the mobile goal carrier in
-					Pressing Button 6D should bring the mobile goal carrier out
-
-					When contracted, pot = 2102 - 2110
-					When extended, pot = 464 - 465
-			*/
-			if(vexRT[Btn6U] == 1 && SensorValue[armLift] <2110)
-			{
-				motor[liftArms] = 127;
-			}
-			else if(vexRT[Btn6D] == 1 && SensorValue[armLift] > 465)
-			{
-				motor[liftArms] = -127;
-			}
-			else
-			{
-				motor[liftArms] = 0;
-			}
+		/*				!!!		DRIVE CONTROLS		!!!
+		*/
+		//To control the left side using channel 3
+		if (vexRT[Ch3] > -35 && vexRT[Ch3] < 35)
+		{
+			leftSpeed = 0;
 		}
-  }
+		else
+		{
+			leftSpeed = vexRT[Ch3];
+		}
+
+		//To control the right side using channel 2
+		if (vexRT[Ch2] > -35 && vexRT[Ch2] < 35)
+		{
+			rightSpeed = 0;
+		}
+		else
+		{
+			rightSpeed = vexRT[Ch2];
+		}
+
+		leftDrive(leftSpeed);
+		rightDrive(rightSpeed);
+
+		/*				!!!		MOBILE GOAL CARRIER CONTROLS		!!!
+
+		Pressing Button 6U should bring the mobile goal carrier in
+		Pressing Button 6D should bring the mobile goal carrier out
+
+		When contracted, pot = 2102 - 2110
+		When extended, pot = 464 - 465
+		*/
+		if(vexRT[Btn6U] == 1 /*&& SensorValue[armLift] <2110*/)
+		{
+			motor[liftArms] = 127;
+		}
+		else if(vexRT[Btn6D] == 1 /*&& SensorValue[armLift] > 465*/)
+		{
+			motor[liftArms] = -127;
+		}
+		else
+		{
+			motor[liftArms] = 0;
+		}
+	}
+}
+
+
