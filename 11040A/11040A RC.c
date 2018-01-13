@@ -47,6 +47,7 @@ task main()
 	SensorValue[rightEncoder] = 0;
 	SensorValue[leftEncoder] = 0;
 
+
 	while(true)
 	{
 		/*				!!!		DRIVE CONTROLS		!!!
@@ -79,14 +80,14 @@ task main()
 		Pressing Button 6U should bring the mobile goal carrier in
 		Pressing Button 6D should bring the mobile goal carrier out
 
-		When contracted, pot = 2102 - 2110
-		When extended, pot = 464 - 465
+		When contracted, pot = 3330
+		When extended, pot = 1425
 		*/
-		if(vexRT[Btn6U] == 1 /*&& SensorValue[armLift] <2110*/)
+		if(vexRT[Btn6U] == 1 && SensorValue[armLift] <3325)
 		{
 			motor[liftArms] = 127;
 		}
-		else if(vexRT[Btn6D] == 1 /*&& SensorValue[armLift] > 465*/)
+		else if(vexRT[Btn6D] == 1 && SensorValue[armLift] > 1420)
 		{
 			motor[liftArms] = -127;
 		}
