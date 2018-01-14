@@ -65,7 +65,9 @@ task main()
 
   while(abs(SensorValue(armLift) < 250 )) //35.4253 degrees to be exact
   {
+    //depending what side robot is desired to be places
     rightDrive(speed);
+    //leftDrive(speed);
   }
   rightDrive(0);
 
