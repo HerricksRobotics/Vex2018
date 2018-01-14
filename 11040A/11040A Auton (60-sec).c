@@ -17,3 +17,48 @@
 // RC CODE FOR THE NEW VEX ROBOT 11040A 8-MOTOR DRIVE
 
 //AUTON for 60secs
+
+void leftDrive(short speed)
+{
+	motor[leftFront] = speed;
+	motor[leftMid] = speed;
+	motor[leftBack] = speed;
+	motor[leftBBack] = speed;
+}
+
+void rightDrive(short speed)
+{
+	motor[rightFront] = speed;
+	motor[rightMid] = speed;
+	motor[rightBack] = speed;
+	motor[rightBBack] = speed;
+}
+
+//returns in Inchs
+float leftDistance()
+{
+	return 4 * PI * (sensorValue[leftEncoder]/360);
+}
+
+//returns in Inches
+float rightDistance()
+{
+	return 4 * PI * (sensorValue[rightEncoder]/360);
+}
+
+task main()
+{
+
+  short leftSpeed;
+	short rightSpeed;
+
+	SensorType[in2] = sensorNone;
+	wait1Msec(1000);
+	SensorType[in2] = sensorGyro;
+	wait1Msec(2000);
+	SensorValue[gyro] = 0; //positive counterclockwise
+
+	SensorValue[rightEncoder] = 0;
+	SensorValue[leftEncoder] = 0;
+
+}
