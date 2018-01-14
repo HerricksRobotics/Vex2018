@@ -16,6 +16,9 @@
 
 // RC CODE FOR THE NEW VEX ROBOT 11040A 8-MOTOR DRIVE
 
+
+//15sec AUTON!!!!!!!
+
 void leftDrive(short speed)
 {
 	motor[leftFront] = speed;
@@ -32,6 +35,18 @@ void rightDrive(short speed)
 	motor[rightBBack] = speed;
 }
 
+//returns in Inchs
+float leftDistance()
+{
+	return 4 * PI * (sensorValue[leftEncoder]/360);
+}
+
+//returns in Inches
+float rightDistance()
+{
+	return 4 * PI * (sensorValue[rightEncoder]/360);
+}
+
 task main()
 {
 	short leftSpeed;
@@ -46,35 +61,148 @@ task main()
 	SensorValue[rightEncoder] = 0;
 	SensorValue[leftEncoder] = 0;
 
-	short mobileDist = 1200;
+	//starting on the right side (not on the side with the loader placement)
 
-	//Lower Lift
-	motor[liftArms] = -60;
-	wait1Msec(900);
-	motor[liftArms] = 0;
-	//Move Forward
-	leftDrive(127);
-	rightDrive(127);
-	wait1Msec(1250);
-	leftDrive(0);
-	rightDrive(0);
-	//Lift Mobile Goal
-	motor[liftArms] = 60;
-	wait1Msec(900);
-	motor[liftArms] = 0;
-	//Move Backward
-	leftDrive(-127);
-	rightDrive(-127);
-	wait1Msec(1250);
-	leftDrive(0);
-	rightDrive(0);
-	while (abs(SensorValue[gyro]) < 1350) {
-		rightDrive(100);
+		float leftD;
+		float rightD;
+		int speed = 100;												//Default Speed, change if needed
+
+		float mobileGoalDist = 59;							//In inches
+
+		//Moving Foward
+		while (rightDistance() < mobileGoalDist || leftDistance() < mobileGoalDist)
+		{
+			if (SensorValue[rightEncoder] > SensorValue[leftEncoder])
+			{
+				leftDrive(speed);
+				rightDrive(0);
+
+				if (SensorValue[armLift] > 1420)
+				{
+					motor[liftArms] = -127;
+				}
+				else
+				{
+					motor[liftArms] = 0;
+				}
+			}
+			else
+			{
+				rightDrive(speed);
+				leftDrive(0);
+
+				if (SensorValue[armLift] > 1420)
+				{
+					motor[liftArms] = -127;
+				}
+				else
+				{
+					motor[liftArms] = 0;
+				}
+			}
+
+
+
+		//Assuming Inertia got the goal into arms
+		//Lift up arm
+		if (SensorValue[armLift] < 3325)
+		{
+			motor[liftArms] = 127;
+		}
+		else
+		{
+			motor[liftArms] = 0;
+		}
+
+
+
+		//Moving Backward
+		while (SensorValue[rightEncoder] > mobileGoalDist || SensorValue[leftEncoder] > mobileGoalDist)
+		{
+			if (SensorValue[rightEncoder] < SensorValue[leftEncoder])
+			{
+				leftDrive(-speed);
+				rightDrive(0);
+			}
+			else
+			{
+				rightDrive(-speed);
+				leftDrive(0);
+			}
+
+		}
 		leftDrive(0);
-	}
-	leftDrive(127);
-	rightDrive(127);
-	wait1Msec(1500);
-	leftDrive(0);
-	rightDrive(0);
+		rightDrive(0);
+
+		if(abs(SensorValue[gyro]) < 1200))	//Inertia will continue the movement to 135 degrees hopefully
+		{
+			rightDrive(speed);
+		}
+		rightDrive(0);
+
+		//need to reset encoders to 0
+		SensorValue[rightEncoder] = 0;
+		SensorValue[leftEncoder] = 0;
+
+
+
+
+		float inSection = 10			//inch- distance needed to travel from the side to middle near the 5 point bar
+		//15.4564inches actual measurements
+
+		while (rightDistance() < inSection || leftDistance() < inSection)
+		{
+			if (SensorValue[rightEncoder] > SensorValue[leftEncoder])
+			{
+				leftDrive(speed);
+				rightDrive(0);
+			}
+			else
+			{
+				rightDrive(speed);
+				leftDrive(0);
+			}
+		}
+
+		if(abs(SensorValue[gyro]) < 200)   //225 degrees to be exact
+		{
+			rightDrive(speed);
+		}
+		rightDrive(0);
+
+
+		//going straight to the 20point zone
+		leftDrive(127);
+		rightDrive(127);
+		wait1Msec(1500);
+		leftDrive(0);
+		rightDrive(0);
+
+
+		//Arm down
+		if (SensorValue[armLift] > 1420)
+		{
+			motor[liftArms] = -127;
+		}
+		motor[liftArms] = 0;
+
+
+		//Drive out of the zone
+		leftDrive(-127);
+		rightDrive(-127);
+		wait1Msec(1500);
+		leftDrive(0);
+		rightDrive(0);
+
+
+
+		//Bring Arm up to end Auton
+		if (SensorValue[armLift] > 1420)
+		{
+			motor[liftArms] = -127;
+		}
+
+		motor[liftArms] = 0;
+
+
 }

@@ -70,6 +70,18 @@ void pre_auton()
 	// Example: clearing encoders, setting servo positions, ...
 }
 
+
+
+/*---------------------------------------------------------------------------*/
+/*                                                                           */
+/*                              Autonomous Task                              */
+/*                                                                         */
+/*  This task is used to control your robot during the autonomous phase of   */
+/*  a VEX Competition.                                                       */
+/*                                                                           */
+/*  You must modify the code to add your own robot specific commands here.   */
+/*---------------------------------------------------------------------------*/
+
 void leftDrive(short speed)
 {
 	motor[leftFront] = speed;
@@ -86,18 +98,169 @@ void rightDrive(short speed)
 	motor[rightBBack] = speed;
 }
 
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              Autonomous Task                              */
-/*                                                                         */
-/*  This task is used to control your robot during the autonomous phase of   */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
+//returns in Inchs
+float leftDistance()
+{
+	return 4 * PI * (sensorValue[leftEncoder]/360);
+}
+
+//returns in Inches
+float rightDistance()
+{
+	return 4 * PI * (sensorValue[rightEncoder]/360);
+}
+
+
+
 task autonomous()
 {
-	/*
+//starting on the right side (not on the side with the loader placement)
+
+	float leftD;
+	float rightD;
+	int speed = 100;												//Default Speed, change if needed
+
+	float mobileGoalDist = 59;							//In inches
+
+	//Moving Foward
+	while (rightDistance() < mobileGoalDist || leftDistance() < mobileGoalDist)
+	{
+		if (SensorValue[rightEncoder] > SensorValue[leftEncoder])
+		{
+			leftDrive(speed);
+			rightDrive(0);
+
+			if (SensorValue[armLift] > 1420)
+			{
+				motor[liftArms] = -127;
+			}
+			else
+			{
+				motor[liftArms] = 0;
+			}
+		}
+		else
+		{
+			rightDrive(speed);
+			leftDrive(0);
+
+			if (SensorValue[armLift] > 1420)
+			{
+				motor[liftArms] = -127;
+			}
+			else
+			{
+				motor[liftArms] = 0;
+			}
+		}
+
+
+
+	//Assuming Inertia got the goal into arms
+	//Lift up arm
+	if (SensorValue[armLift] < 3325)
+	{
+		motor[liftArms] = 127;
+	}
+	else
+	{
+		motor[liftArms] = 0;
+	}
+
+
+
+	//Moving Backward
+	while (SensorValue[rightEncoder] > mobileGoalDist || SensorValue[leftEncoder] > mobileGoalDist)
+	{
+		if (SensorValue[rightEncoder] < SensorValue[leftEncoder])
+		{
+			leftDrive(-speed);
+			rightDrive(0);
+		}
+		else
+		{
+			rightDrive(-speed);
+			leftDrive(0);
+		}
+
+	}
+	leftDrive(0);
+	rightDrive(0);
+
+	if(abs(SensorValue[gyro]) < 1200))	//Inertia will continue the movement to 135 degrees hopefully
+	{
+		rightDrive(speed);
+	}
+	rightDrive(0);
+
+	//need to reset encoders to 0
+	SensorValue[rightEncoder] = 0;
+	SensorValue[leftEncoder] = 0;
+
+
+
+
+	float inSection = 10			//inch- distance needed to travel from the side to middle near the 5 point bar
+	//15.4564inches actual measurements
+
+	while (rightDistance() < inSection || leftDistance() < inSection)
+	{
+		if (SensorValue[rightEncoder] > SensorValue[leftEncoder])
+		{
+			leftDrive(speed);
+			rightDrive(0);
+		}
+		else
+		{
+			rightDrive(speed);
+			leftDrive(0);
+		}
+	}
+
+	if(abs(SensorValue[gyro]) < 200)   //225 degrees to be exact
+	{
+		rightDrive(speed);
+	}
+	rightDrive(0);
+
+
+	//going straight to the 20point zone
+	leftDrive(127);
+	rightDrive(127);
+	wait1Msec(1500);
+	leftDrive(0);
+	rightDrive(0);
+
+
+	//Arm down
+	if (SensorValue[armLift] > 1420)
+	{
+		motor[liftArms] = -127;
+	}
+	motor[liftArms] = 0;
+
+
+	//Drive out of the zone
+	leftDrive(-127);
+	rightDrive(-127);
+	wait1Msec(1500);
+	leftDrive(0);
+	rightDrive(0);
+
+
+
+	//Bring Arm up to end Auton
+	if (SensorValue[armLift] > 1420)
+	{
+		motor[liftArms] = -127;
+	}
+
+	motor[liftArms] = 0;
+
+
+
+	/* Chris' Dumb auton of not using real values...
+
 	short mobileDist = 1200;
 
 	//Lower Lift
