@@ -63,7 +63,7 @@ task main()
 
 		float leftD;
 		float rightD;
-		int speed = 100;												//Default Speed, change if needed
+		short speed = 100;												//Default Speed, change if needed
 
 		float mobileGoalDist = 59;							//In inches
 
