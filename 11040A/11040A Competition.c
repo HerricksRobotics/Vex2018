@@ -101,13 +101,13 @@ void rightDrive(short speed)
 //returns in Inchs
 float leftDistance()
 {
-	return 4 * PI * (sensorValue[leftEncoder]/360);
+	return 4 * PI * (SensorValue[leftEncoder]/360);
 }
 
 //returns in Inches
 float rightDistance()
 {
-	return 4 * PI * (sensorValue[rightEncoder]/360);
+	return 4 * PI * (SensorValue[rightEncoder]/360);
 }
 
 
@@ -187,7 +187,7 @@ task autonomous()
 	leftDrive(0);
 	rightDrive(0);
 
-	if(abs(SensorValue[gyro]) < 1200))	//Inertia will continue the movement to 135 degrees hopefully
+	if(abs(SensorValue[gyro]) < 1200)	//Inertia will continue the movement to 135 degrees hopefully
 	{
 		rightDrive(speed);
 	}
@@ -200,7 +200,7 @@ task autonomous()
 
 
 
-	float inSection = 10			//inch- distance needed to travel from the side to middle near the 5 point bar
+	float inSection = 10;			//inch- distance needed to travel from the side to middle near the 5 point bar
 	//15.4564inches actual measurements
 
 	while (rightDistance() < inSection || leftDistance() < inSection)
@@ -317,6 +317,7 @@ task autonomous()
 		rightDrive(0);
 	*/
 	}
+}
 
 	/*---------------------------------------------------------------------------*/
 	/*                                                                           */

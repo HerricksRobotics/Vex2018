@@ -35,13 +35,13 @@ void rightDrive(short speed)
 //returns in Inchs
 float leftDistance()
 {
-	return 4 * PI * (sensorValue[leftEncoder]/360);
+	return 4 * PI * (SensorValue[leftEncoder]/360);
 }
 
 //returns in Inches
 float rightDistance()
 {
-	return 4 * PI * (sensorValue[rightEncoder]/360);
+	return 4 * PI * (SensorValue[rightEncoder]/360);
 }
 
 
@@ -63,7 +63,7 @@ task main()
 	SensorValue[leftEncoder] = 0;
 
 
-  while(abs(SensorValue(armLift) < 250 )) //35.4253 degrees to be exact
+  while(abs(SensorValue[gyro]) < 250) //35.4253 degrees to be exact
   {
     //depending what side robot is desired to be places
     rightDrive(speed);
