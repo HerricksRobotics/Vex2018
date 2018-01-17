@@ -80,14 +80,14 @@ task main()
 		Pressing Button 6U should bring the mobile goal carrier in
 		Pressing Button 6D should bring the mobile goal carrier out
 
-		When contracted, pot = 3330
-		When extended, pot = 1425
+		When contracted, pot = 2114
+		When extended, pot = 4095
 		*/
-		if(vexRT[Btn6U] == 1 && SensorValue[armLift] <3325)
+		if(vexRT[Btn6U] == 1 && SensorValue[armLift] <4095)
 		{
 			motor[liftArms] = 127;
 		}
-		else if(vexRT[Btn6D] == 1 && SensorValue[armLift] > 1420)
+		else if(vexRT[Btn6D] == 1 && SensorValue[armLift] > 2114)
 		{
 			motor[liftArms] = -127;
 		}
