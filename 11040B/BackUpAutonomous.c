@@ -30,20 +30,27 @@ task main()
 	int armBaseSpeed;
 	int grabberSpeed;
 	int mobileSpeed;
-        motor[frontMotor] = 127;
-	moveForward(30);
-        wait1Msec(1350);
+  motor[frontMotor] = -127;
+	moveForward(-50);
+  wait1Msec(1100);
 	//STOP
-        moveForward(0);
+  moveForward(0);
 	//Lift Preload
 	liftArm(-80);
-        wait1Msec(4000);
-        //STOP                                                                                                                                                                                  
-        liftArm(0);
-        motor[frontMotor] = -127;
-	wait1Msec(4000);
-        //STOP                                                                                                                                                                                       
+  wait1Msec(2000);
+  //STOP
+  liftArm(0);
+  motor[frontMotor] = 127;
+	wait1Msec(500);
+	motor[frontMotor] = 0;
 	liftArm(80);
-        wait1Msec(2000);
-        liftArm(0);
+	wait1Msec(500);
+	liftArm(0);
+	motor[frontMotor] = -127;
+	wait1Msec(500);
+	motor[frontMotor] = 0;
+  //STOP
+	liftArm(80);
+  wait1Msec(2000);
+  liftArm(0);
 }

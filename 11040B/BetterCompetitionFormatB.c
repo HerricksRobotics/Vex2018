@@ -86,37 +86,29 @@ task autonomous()
 	int armBaseSpeed;
 	int grabberSpeed;
 	int mobileSpeed;
-	//Keep Grabber on the whole time
-	motor[frontMotor] = 127;
-	//Move Arm back for Preload
-	liftArm(-60);
-	wait1Msec(1000);
+  motor[frontMotor] = -127;
+	moveForward(-50);
+  wait1Msec(1100);
+	//STOP
+  moveForward(0);
+	//Lift Preload
+	liftArm(-80);
+  wait1Msec(2000);
+  //STOP
+  liftArm(0);
+  motor[frontMotor] = 127;
+	wait1Msec(500);
+	motor[frontMotor] = 0;
+	liftArm(80);
+	wait1Msec(500);
 	liftArm(0);
-
-	//Lower Mobile Goal Lift
-	liftMobileArm(127);
-	wait1Msec(800);
-	liftMobileArm(0);
-
-	//Move Forward Towards Mobile Goal
-	moveForward(80);
-	wait1Msec(2000);
-	moveForward(0);
-
-	//Raise Mobile Goal Lift
-	liftMobileArm(-127);
-	wait1Msec(800);
-	liftMobileArm(0);
-
-	//Stack Preload
-	liftArm(60);
-	wait1Msec(1000);
-	liftArm(0);
-
-	//Move Backward
-	moveForward(-80);
-	wait1Msec(2000);
-	moveForward(0);
+	motor[frontMotor] = -127;
+	wait1Msec(500);
+	motor[frontMotor] = 0;
+  //STOP
+	liftArm(80);
+  wait1Msec(2000);
+  liftArm(0);
 }
 
 /*---------------------------------------------------------------------------*/

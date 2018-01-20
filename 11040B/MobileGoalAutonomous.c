@@ -1,5 +1,6 @@
 #pragma config(Sensor, in1,    liftAngle,      sensorPotentiometer)
 #pragma config(Sensor, dgtl1,  rightEncoder,   sensorQuadEncoder)
+#pragma config(Sensor, dgtl4,  leftEncoder,    sensorQuadEncoder)
 #pragma config(Motor,  port1,           rightBack,     tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port2,           leftBack,      tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port3,           rightFront,    tmotorVex393_MC29, openLoop)
@@ -57,33 +58,42 @@ task main()
 	int mobileSpeed;
 
 	SensorValue[rightEncoder] = 0;
+	SensorValue[leftEncoder] = 0;
 
 	//Keep Grabber on the whole time
 	motor[frontMotor] = -127;
 
 	//Move Arm back for Preload
-	liftArm(-60);
-	wait1Msec(1000);
+	liftArm(-80);
+	wait1Msec(1200);
 	liftArm(0);
 	//Lower Mobile Goal Lift
 
-	liftMobileArm(127);
-	wait1Msec(800);
+	liftMobileArm(-127);
+	wait1Msec(1500);
 	liftMobileArm(0);
 
 	//Move Forward Towards Mobile Goal
-	while (4 * PI * (SensorValue[rightEncoder] / 360) < 60) {
-		moveForward(80);
+	while (4 * PI * (SensorValue[rightEncoder] / 360) < 30) {
+		if (SensorValue[rightEncoder] > SensorValue[leftEncoder]) {
+			motor[leftFront]=50;
+			motor[leftBack] =50;
+			motor[rightFront] = 0;
+			motor[rightBack] = 0;
+		}
+		else {
+			moveForward(80);
+		}
 	}
 	moveForward(0);
 
 	//Raise Mobile Goal Lift
-	liftMobileArm(-127);
-	wait1Msec(800);
+	liftMobileArm(127);
+	wait1Msec(1500);
 	liftMobileArm(0);
 
 	//Stack Preload
-	liftArm(60);
+	liftArm(80);
 	wait1Msec(1000);
 	liftArm(0);
 
@@ -93,6 +103,51 @@ task main()
 	}
 	moveForward(0);
 
+	//Turn left by 120 degrees
+	while (abs(SensorValue[gyro]) < 1350) {
+		rightDrive(50);
+		motor[leftFront] = -50;
+		motor[leftMid] = -50;
+		motor[leftBack] = -50;
+		motor[leftBBack] = -50;
+	}
+	rightDrive(0);
+	motor[leftFront] = 0;
+	motor[leftMid] = 0;
+	motor[leftBack] = 0;
+	motor[leftBBack] = 0;
 
+	SensorValue[rightEncoder] = 0;
+	//Move forward a little bit
+	while ( ( 4 * PI * (SensorValue[rightEncoder] / 360) ) < 10) {
+		moveForward(50);
+	}
+	moveForward(0);
 
+	SensorValue[gyro] = 0;
+
+	//Turn towards 20 point zone
+	while (abs(SensorValue[gyro]) < 700) {
+		rightDrive(50);
+		motor[leftFront] = -50;
+		motor[leftMid] = -50;
+		motor[leftBack] = -50;
+		motor[leftBBack] = -50;
+	}
+	rightDrive(0);
+	motor[leftFront] = 0;
+	motor[leftBack] = 0;
+
+	//Full speed into 20 Point Zone
+	moveForward(100);
+	wait1Msec(1500);
+	moveForward(0);
+
+	//Lower the mobile goal carrier
+	motor[liftArms] = -127;
+	wait1Msec(2000);
+	motor[liftArms] = 0;
+
+	//Move backward
+	moveForward(-100);
 }

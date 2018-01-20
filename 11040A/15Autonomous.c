@@ -41,10 +41,6 @@ task main()
 {
 	short leftSpeed;
 	short rightSpeed;
-	SensorType[gyro] = sensorNone;
-	wait1Msec(1000);
-	SensorType[gyro] = sensorGyro;
-	wait1Msec(2000);
 	SensorValue[gyro] = 0; //positive counterclockwise
 	SensorValue[rightEncoder] = 0;
 
@@ -54,11 +50,11 @@ task main()
 	motor[liftArms] = 0;
 
 	//Move forward to pick up mobile goal
-	while ( (4 * PI * (SensorValue[rightEncoder] / 360) ) < 60 ) {
-		moveForward(50);
+	while ( (4 * PI * (SensorValue[rightEncoder] / 360) ) < 28 ) {
+		moveForward(70);
 	}
 	moveForward(0);
-	
+
 	//Raise the mobile goal carrier
 	motor[liftArms] = 127;
 	wait1Msec(1500);
@@ -73,36 +69,50 @@ task main()
 	//Turn left by 120 degrees
 	while (abs(SensorValue[gyro]) < 1350) {
 		rightDrive(50);
+		motor[leftFront] = -50;
+		motor[leftMid] = -50;
+		motor[leftBack] = -50;
+		motor[leftBBack] = -50;
 	}
 	rightDrive(0);
-	
+	motor[leftFront] = 0;
+	motor[leftMid] = 0;
+	motor[leftBack] = 0;
+	motor[leftBBack] = 0;
+
 	SensorValue[rightEncoder] = 0;
 	//Move forward a little bit
 	while ( ( 4 * PI * (SensorValue[rightEncoder] / 360) ) < 10) {
 		moveForward(50);
 	}
 	moveForward(0);
-	
+
 	SensorValue[gyro] = 0;
-	
+
 	//Turn towards 20 point zone
-	while (abs(SensorValue[gyro]) < 900) {
+	while (abs(SensorValue[gyro]) < 800) {
 		rightDrive(50);
+		motor[leftFront] = -50;
+		motor[leftMid] = -50;
+		motor[leftBack] = -50;
+		motor[leftBBack] = -50;
 	}
 	rightDrive(0);
-	
+	motor[leftFront] = 0;
+	motor[leftMid] = 0;
+	motor[leftBack] = 0;
+	motor[leftBBack] = 0;
+
 	//Full speed into 20 Point Zone
 	moveForward(100);
 	wait1Msec(1500);
 	moveForward(0);
-	
+
 	//Lower the mobile goal carrier
 	motor[liftArms] = -127;
-	wait1Msec(3000);
+	wait1Msec(1000);
 	motor[liftArms] = 0;
-	
+
 	//Move backward
 	moveForward(-100);
-	wait1Msec(1500);
-	moveForward(0);
 }

@@ -98,225 +98,88 @@ void rightDrive(short speed)
 	motor[rightBBack] = speed;
 }
 
-//returns in Inchs
-float leftDistance()
-{
-	return 4 * PI * (SensorValue[leftEncoder]/360);
-}
 
-//returns in Inches
-float rightDistance()
-{
-	return 4 * PI * (SensorValue[rightEncoder]/360);
+void moveForward(short speed) {
+	leftDrive(speed);
+	rightDrive(speed);
 }
-
 
 
 task autonomous()
 {
-//starting on the right side (not on the side with the loader placement)
+	//Lower the mobile goal carrier
+	motor[liftArms] = -127;
+	wait1Msec(1000);
+	motor[liftArms] = 0;
 
-	float leftD;
-	float rightD;
-	int speed = 100;												//Default Speed, change if needed
-
-	float mobileGoalDist = 59;							//In inches
-
-	//Moving Foward
-	while (rightDistance() < mobileGoalDist || leftDistance() < mobileGoalDist)
-	{
-		if (SensorValue[rightEncoder] > SensorValue[leftEncoder])
-		{
-			leftDrive(speed);
-			rightDrive(0);
-
-			if (SensorValue[armLift] > 1420)
-			{
-				motor[liftArms] = -127;
-			}
-			else
-			{
-				motor[liftArms] = 0;
-			}
-		}
-		else
-		{
-			rightDrive(speed);
-			leftDrive(0);
-
-			if (SensorValue[armLift] > 1420)
-			{
-				motor[liftArms] = -127;
-			}
-			else
-			{
-				motor[liftArms] = 0;
-			}
-		}
-
-
-
-	//Assuming Inertia got the goal into arms
-	//Lift up arm
-	if (SensorValue[armLift] < 3325)
-	{
-		motor[liftArms] = 127;
+	//Move forward to pick up mobile goal
+	while ( (4 * PI * (SensorValue[rightEncoder] / 360) ) < 28 ) {
+		moveForward(70);
 	}
-	else
-	{
-		motor[liftArms] = 0;
+	moveForward(0);
+
+	//Raise the mobile goal carrier
+	motor[liftArms] = 127;
+	wait1Msec(1500);
+	motor[liftArms] = 0;
+
+	//Move backward
+	while ( (4 * PI * (SensorValue[rightEncoder] / 360) ) > 0 ) {
+		moveForward(-50);
 	}
+	moveForward(0);
 
-
-
-	//Moving Backward
-	while (SensorValue[rightEncoder] > mobileGoalDist || SensorValue[leftEncoder] > mobileGoalDist)
-	{
-		if (SensorValue[rightEncoder] < SensorValue[leftEncoder])
-		{
-			leftDrive(-speed);
-			rightDrive(0);
-		}
-		else
-		{
-			rightDrive(-speed);
-			leftDrive(0);
-		}
-
-	}
-	leftDrive(0);
-	rightDrive(0);
-
-	if(abs(SensorValue[gyro]) < 1200)	//Inertia will continue the movement to 135 degrees hopefully
-	{
-		rightDrive(speed);
+	//Turn left by 120 degrees
+	while (abs(SensorValue[gyro]) < 1350) {
+		rightDrive(50);
+		motor[leftFront] = -50;
+		motor[leftMid] = -50;
+		motor[leftBack] = -50;
+		motor[leftBBack] = -50;
 	}
 	rightDrive(0);
+	motor[leftFront] = 0;
+	motor[leftMid] = 0;
+	motor[leftBack] = 0;
+	motor[leftBBack] = 0;
 
-	//need to reset encoders to 0
 	SensorValue[rightEncoder] = 0;
-	SensorValue[leftEncoder] = 0;
-
-
-
-
-	float inSection = 10;			//inch- distance needed to travel from the side to middle near the 5 point bar
-	//15.4564inches actual measurements
-
-	while (rightDistance() < inSection || leftDistance() < inSection)
-	{
-		if (SensorValue[rightEncoder] > SensorValue[leftEncoder])
-		{
-			leftDrive(speed);
-			rightDrive(0);
-		}
-		else
-		{
-			rightDrive(speed);
-			leftDrive(0);
-		}
+	//Move forward a little bit
+	while ( ( 4 * PI * (SensorValue[rightEncoder] / 360) ) < 10) {
+		moveForward(50);
 	}
+	moveForward(0);
 
-	if(abs(SensorValue[gyro]) < 200)   //225 degrees to be exact
-	{
-		rightDrive(speed);
+	SensorValue[gyro] = 0;
+
+	//Turn towards 20 point zone
+	while (abs(SensorValue[gyro]) < 900) {
+		rightDrive(50);
+		motor[leftFront] = -50;
+		motor[leftMid] = -50;
+		motor[leftBack] = -50;
+		motor[leftBBack] = -50;
 	}
 	rightDrive(0);
+	motor[leftFront] = 0;
+	motor[leftMid] = 0;
+	motor[leftBack] = 0;
+	motor[leftBBack] = 0;
 
-
-	//going straight to the 20point zone
-	leftDrive(127);
-	rightDrive(127);
+	//Full speed into 20 Point Zone
+	moveForward(100);
 	wait1Msec(1500);
-	leftDrive(0);
-	rightDrive(0);
+	moveForward(0);
 
-
-	//Arm down
-	if (SensorValue[armLift] > 1420)
-	{
-		motor[liftArms] = -127;
-	}
+	//Lower the mobile goal carrier
+	motor[liftArms] = -127;
+	wait1Msec(3000);
 	motor[liftArms] = 0;
 
-
-	//Drive out of the zone
-	leftDrive(-127);
-	rightDrive(-127);
+	//Move backward
+	moveForward(-100);
 	wait1Msec(1500);
-	leftDrive(0);
-	rightDrive(0);
-
-
-
-	//Bring Arm up to end Auton
-	if (SensorValue[armLift] > 1420)
-	{
-		motor[liftArms] = -127;
-	}
-
-	motor[liftArms] = 0;
-
-
-
-	/* Chris' Dumb auton of not using real values...
-
-	short mobileDist = 1200;
-
-	//Lower Lift
-	motor[liftArms] = -60;
-	wait1Msec(900);
-	motor[liftArms] = 0;
-
-	//Move Forward
-	while (SensorValue[rightEncoder] < mobileDist || SensorValue[leftEncoder] < mobileDist) {
-		if (SensorValue[rightEncoder] > SensorValue[leftEncoder]) {
-			leftDrive(100);
-			rightDrive(0);
-		}
-		else if (SensorValue[leftEncoder] > SensorValue[rightEncoder])
-		{
-			rightDrive(100);
-			leftDrive(0);
-
-		}
-	}
-		leftDrive(0);
-		rightDrive(0);
-		//Lift Mobile Goal
-		motor[liftArms] = 60;
-		wait1Msec(900);
-		motor[liftArms] = 0;
-
-		//Move Backward
-		while (SensorValue[rightEncoder] > 800 || SensorValue[leftEncoder] > 800) {
-			if (SensorValue[rightEncoder] < SensorValue[leftEncoder]) {
-				leftDrive(-100);
-				rightDrive(0);
-			}
-			else if (SensorValue[leftEncoder] < SensorValue[rightEncoder])
-			{
-				leftDrive(0);
-				rightDrive(-100);
-			}
-			else {
-				leftDrive(-100);
-				rightDrive(-100);
-			}
-		}
-		leftDrive(0);
-		rightDrive(0);
-		while (abs(SensorValue[gyro]) < 1350) {
-			rightDrive(100);
-			leftDrive(0);
-		}
-		leftDrive(127);
-		rightDrive(127);
-		wait1Msec(1500);    //chris can suck the big d
-		leftDrive(0);
-		rightDrive(0);
-	*/
-	}
+	moveForward(0);
 }
 
 	/*---------------------------------------------------------------------------*/
