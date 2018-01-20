@@ -54,7 +54,7 @@ task main()
 	motor[liftArms] = 0;
 
 	//Move forward to pick up mobile goal
-	while ( (4 * PI * (SensorValue[rightEncoder] / 720) ) < 24 ) {
+	while ( (4 * PI * (SensorValue[rightEncoder] / 720) ) < 60 ) {
 		moveForward(50);	
 	}
 	moveForward(0);
@@ -78,7 +78,7 @@ task main()
 	
 	SensorValue[rightEncoder] = 0;
 	//Move forward a little bit
-	while ( ( 4 * PI * (SensorValue[rightEncoder] / 720) ) < 24) {
+	while ( ( 4 * PI * (SensorValue[rightEncoder] / 720) ) < 60) {
 		moveForward(50);
 	}
 	moveForward(0);
