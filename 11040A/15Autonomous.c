@@ -50,22 +50,22 @@ task main()
 
 	//Lower the mobile goal carrier
 	motor[liftArms] = -127;
-	wait1Msec(1500);
+	wait1Msec(1000);
 	motor[liftArms] = 0;
 
 	//Move forward to pick up mobile goal
-	while ( (4 * PI * (SensorValue[rightEncoder] / 720) ) < 60 ) {
-		moveForward(50);	
+	while ( (4 * PI * (SensorValue[rightEncoder] / 360) ) < 60 ) {
+		moveForward(50);
 	}
 	moveForward(0);
 	
 	//Raise the mobile goal carrier
 	motor[liftArms] = 127;
-	wait1Msec(3000);
+	wait1Msec(1500);
 	motor[liftArms] = 0;
 
 	//Move backward
-	while ( (4 * PI * (SensorValue[rightEncoder] / 720) ) > 0 ) {
+	while ( (4 * PI * (SensorValue[rightEncoder] / 360) ) > 0 ) {
 		moveForward(-50);
 	}
 	moveForward(0);
@@ -78,7 +78,7 @@ task main()
 	
 	SensorValue[rightEncoder] = 0;
 	//Move forward a little bit
-	while ( ( 4 * PI * (SensorValue[rightEncoder] / 720) ) < 60) {
+	while ( ( 4 * PI * (SensorValue[rightEncoder] / 360) ) < 10) {
 		moveForward(50);
 	}
 	moveForward(0);
