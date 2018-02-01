@@ -189,7 +189,7 @@ task main()
 		motor[rigthBack] = 0;
 	}
 
-	moveForward(127);
+	moveForward(127);	
 	wait1Msec(3000);
 	moveForward(0);
 
@@ -202,11 +202,12 @@ task main()
 		motor[rigthBack] = 0;
 	}
 
-	moveForward(127);
-	wait1Msec(1000);
-	moveForward(0);
 
-	liftMobileArm(-127);
+	liftMobileArm(-127); 
+	wait1Msec(1000);
+	liftMobileArm(0);
+	
+	moveForward(-127);
 	wait1Msec(1000);
 	liftMobileArm(0);
 
@@ -214,17 +215,15 @@ task main()
 	wait1Msec(1000);
 	liftMobileArm(0);
 
-	moveForward(-127);
-	wait1Msec(1000);
-	moveForward(0);
+	//Removed code that moved robot too far back
 
 	SensorValue[gyro] = 0;
 	while(abs(SensorValue[gyro]) < 900) {
-		//Turn right
-		motor[leftFront] = 100;
-		motor[leftBack] = 100;
-		motor[rightFront] = 0;
-		motor[rigthBack] = 0;
+		//Turn left
+		motor[leftFront] = 0;
+		motor[leftBack] = 0;		//Robot turned in wrong direction previously
+		motor[rightFront] = 100;
+		motor[rigthBack] = 100;
 	}
 
 	moveForward(127);
