@@ -132,15 +132,15 @@ task main()
 		motor[rightFront] = 0;
 		motor[rightBack] = 0;
 	}
-	/*
+	
 
-		SensorValue[gyro] = 0;
+	SensorValue[gyro] = 0;
 	while(abs(SensorValue[gyro]) < 900) {
 		//Turn right
 		motor[leftFront] = 100;
 		motor[leftBack] = 100;
 		motor[rightFront] = 0;
-		motor[rigthBack] = 0;
+		motor[rightBack] = 0;
 	}
 
 	moveForward(127);
@@ -165,7 +165,7 @@ task main()
 		motor[leftFront] = 100;
 		motor[leftBack] = 100;
 		motor[rightFront] = 0;
-		motor[rigthBack] = 0;
+		motor[rightBack] = 0;
 	}
 
 	liftMobileArm(-100);
@@ -186,7 +186,7 @@ task main()
 		motor[leftFront] = 100;
 		motor[leftBack] = 100;
 		motor[rightFront] = 0;
-		motor[rigthBack] = 0;
+		motor[rightBack] = 0;
 	}
 
 	moveForward(127);	
@@ -199,7 +199,7 @@ task main()
 		motor[leftFront] = 100;
 		motor[leftBack] = 100;
 		motor[rightFront] = 0;
-		motor[rigthBack] = 0;
+		motor[rightBack] = 0;
 	}
 
 
@@ -223,7 +223,7 @@ task main()
 		motor[leftFront] = 0;
 		motor[leftBack] = 0;		//Robot turned in wrong direction previously
 		motor[rightFront] = 100;
-		motor[rigthBack] = 100;
+		motor[rightBack] = 100;
 	}
 
 	moveForward(127);
@@ -235,7 +235,7 @@ task main()
 
 	motor[frontMotor] = -127;
 	wait1Msec(1000);
-	motor[frontMotor] = = 0;
+	motor[frontMotor] =  0;
 
 	motor[frontMotor] = 127;
 	wait1Msec(1000);
@@ -245,10 +245,10 @@ task main()
 
 
 
-	*/
+	
 
 
-	/*
+	
 	wait1Msec(1000);
 
 	//Moves forward
@@ -260,7 +260,7 @@ task main()
 	motor[leftFront] = 100;
 	motor[leftBack] = 100;
 	motor[rightFront] = 0;
-	motor[rigthBack] = 0;
+	motor[rightBack] = 0;
 
 	wait1Msec(1000);
 
@@ -276,7 +276,7 @@ task main()
 		motor[leftFront] = 0;
 		motor[leftBack] = 0;
 		motor[rightFront] = 100;
-		motor[rigthBack] = 100;
+		motor[rightBack] = 100;
 	}
 	moveForward (60);
 	wait1Msec(500);
@@ -292,7 +292,7 @@ task main()
 		motor[leftFront] = 0;
 		motor[leftBack] = 0;		
 		motor[rightFront] = 100;
-		motor[rigthBack] = 100;
+		motor[rightBack] = 100;
 	}
 	moveForward(127);
 	wait1Msec(2000);
@@ -311,7 +311,7 @@ task main()
 		motor[leftFront] = 100;
 		motor[leftBack] = 100;		
 		motor[rightFront] = 0;
-		motor[rigthBack] = 0;
+		motor[rightBack] = 0;
 	}
 	moveForward(127);
 	wait1Msec(2000);
@@ -325,6 +325,6 @@ task main()
 	liftMobileArm(127);
 	wait1Msec(1000);
 	liftMobileArm(0);
-	*/
+	
 
 }
