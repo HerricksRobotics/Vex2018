@@ -271,11 +271,13 @@ task main()
 	liftMobileArm(120);
 	wait1Msec(1500);
 
-	motor[leftFront] = 100;
-	motor[leftBack] = 100;
-	motor[rightFront] = 0;
-	motor[rigthBack] = 0;
-
+	while(abs(SensorValue[gyro]) < 900) {
+		//Turn left
+		motor[leftFront] = 0;
+		motor[leftBack] = 0;
+		motor[rightFront] = 100;
+		motor[rigthBack] = 100;
+	}
 	moveForward (60);
 	wait1Msec(500);
 
