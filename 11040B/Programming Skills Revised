@@ -286,7 +286,7 @@ task main()
 	moveForward(-60);
 	wait1Msec(2000);
 	moveForward(0);
-
+	//This revision ends backed up in the middle of the field near the back stationary goal
 	*/
 
 }
