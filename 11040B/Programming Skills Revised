@@ -286,7 +286,45 @@ task main()
 	moveForward(-60);
 	wait1Msec(2000);
 	moveForward(0);
-	//This revision ends backed up in the middle of the field near the back stationary goal
+	//This part ends backed up in the middle of the field near the back stationary goal
+		while(abs(SensorValue[gyro]) < 1350) {
+		//Turn left
+		motor[leftFront] = 0;
+		motor[leftBack] = 0;		
+		motor[rightFront] = 100;
+		motor[rigthBack] = 100;
+	}
+	moveForward(127);
+	wait1Msec(2000);
+	moveForward(0);
+	liftMobileArm(-127);
+	wait1Msec(1500);
+	liftMobileArm(0);
+	moveForward(60);
+	wait1Msec(1000);
+	moveForward(0);
+	liftMobileArm(127);
+	wait1Msec(1500);
+	liftMobileArm(0);
+	while(abs(SensorValue[gyro]) < 900) {
+		//Turn left
+		motor[leftFront] = 100;
+		motor[leftBack] = 100;		
+		motor[rightFront] = 0;
+		motor[rigthBack] = 0;
+	}
+	moveForward(127);
+	wait1Msec(2000);
+	moveForward(0);
+	liftMobileArm(-127);
+	wait1Msec(1500);
+	liftMobileArm(0);
+	moveForward(-127);
+	wait1Msec(2000);
+	moveForward(0);
+	liftMobileArm(127);
+	wait1Msec(1000);
+	liftMobileArm(0);
 	*/
 
 }
