@@ -271,7 +271,7 @@ task main()
 	liftMobileArm(120);
 	wait1Msec(1500);
 
-	while(abs(SensorValue[gyro]) < 900) {
+	while(abs(SensorValue[gyro]) < 450) {
 		//Turn left
 		motor[leftFront] = 0;
 		motor[leftBack] = 0;
@@ -280,7 +280,12 @@ task main()
 	}
 	moveForward (60);
 	wait1Msec(500);
-
+	liftMobileArm(-120);
+	wait1Msec(1500);
+	liftMobileArm(0);
+	moveForward(-60);
+	wait1Msec(2000);
+	moveForward(0);
 
 	*/
 
