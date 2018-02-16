@@ -1,5 +1,5 @@
-#pragma config(Sensor, in1,    gyro1,          sensorGyro)
-#pragma config(Sensor, in2,    gyro2,          sensorGyro)
+#pragma config(Sensor, in1,    rightGyro,          sensorGyro)
+#pragma config(Sensor, in2,    leftGyro,          sensorGyro)
 #pragma config(Sensor, dgtl1,  rightEncoder,   sensorQuadEncoder)
 #pragma config(Sensor, dgtl3,  leftEncoder,    sensorQuadEncoder)
 #pragma config(Sensor, dgtl5,  light1,         sensorLEDtoVCC)
@@ -34,6 +34,22 @@ void rightDrive(short speed)
 
 task main()
 {
+
+
+	SensorType[in1] = sensorNone;
+	wait1Msec(1000);
+	SensorType[in1] = sensorGyro;
+	wait1Msec(2000);
+
+	SensorType[in2] = sensorNone;
+	wait1Msec(1000);
+	SensorType[in2] = sensorGyro;
+	wait1Msec(2000);
+
+
+	SensorValue[rightEncoder] = 0;
+	SensorValue[leftEncoder] = 0;
+
 
   short leftSpeed;
   short rightSpeed;
