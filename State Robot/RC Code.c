@@ -88,8 +88,8 @@ task main()
 		Pressing Button 6D should bring the mobile goal carrier out
 
 		CHANGE VALUES
-		When contracted, pot = 2403
-		When extended, pot = 348
+		When contracted, pot =
+		When extended, pot =
 		*/
 		if(vexRT[Btn6U] == 1 && SensorValue[mobileAngle] <2403)
 		{
