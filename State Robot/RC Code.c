@@ -1,9 +1,14 @@
-#pragma config(Sensor, in1,    rightGyro,          sensorGyro)
-#pragma config(Sensor, in2,    leftGyro,          sensorGyro)
+#pragma config(Sensor, in1,    rightGyro,      sensorGyro)
+#pragma config(Sensor, in2,    leftGyro,       sensorGyro)
+#pragma config(Sensor, in3,    mobileAngle,    sensorPotentiometer)
+#pragma config(Sensor, in4,    armSwingAngle,  sensorPotentiometer)
+#pragma config(Sensor, in5,    rightLine,      sensorLineFollower)
+#pragma config(Sensor, in6,    midLine,        sensorLineFollower)
+#pragma config(Sensor, in7,    leftLine,       sensorLineFollower)
 #pragma config(Sensor, dgtl1,  rightEncoder,   sensorQuadEncoder)
 #pragma config(Sensor, dgtl3,  leftEncoder,    sensorQuadEncoder)
-#pragma config(Sensor, dgtl5,  light1,         sensorLEDtoVCC)
-#pragma config(Sensor, dgtl6,  light2,         sensorLEDtoVCC)
+#pragma config(Sensor, dgtl5,  rightLights,    sensorLEDtoVCC)
+#pragma config(Sensor, dgtl6,  leftLights,     sensorLEDtoVCC)
 #pragma config(Motor,  port1,           rightBack,     tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port2,           rightMid,      tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port3,           rightFront,    tmotorVex393_MC29, openLoop, reversed)
@@ -31,122 +36,139 @@ void rightDrive(short speed)
 }
 
 
-
 task main()
 {
-
-
 	SensorType[in1] = sensorNone;
-	wait1Msec(1000);
-	SensorType[in1] = sensorGyro;
-	wait1Msec(2000);
-
 	SensorType[in2] = sensorNone;
 	wait1Msec(1000);
+	SensorType[in1] = sensorGyro;
 	SensorType[in2] = sensorGyro;
 	wait1Msec(2000);
-
 
 	SensorValue[rightEncoder] = 0;
 	SensorValue[leftEncoder] = 0;
 
 
-  short leftSpeed;
-  short rightSpeed;
+	short leftSpeed;
+	short rightSpeed;
 
 
-  while(true)
-  {
-    /*				!!!		DRIVE CONTROLS		!!!
-    */
-    //To control the left side using channel 3
-    if (vexRT[Ch3] > -35 && vexRT[Ch3] < 35)
-    {
-      leftSpeed = 0;
-    }
-    else
-    {
-      leftSpeed = vexRT[Ch3];
-    }
+	while(true)
+	{
+		/*				!!!		DRIVE CONTROLS		!!!
+		* The main remote should only control the mobile goal arm and
+		* drives the robot around.
+		*/
+		//To control the left side using channel 3
+		if (vexRT[Ch3] > -25 && vexRT[Ch3] < 25)
+		{
+			leftSpeed = 0;
+		}
+		else
+		{
+			leftSpeed = vexRT[Ch3];
+		}
 
-    //To control the right side using channel 2
-    if (vexRT[Ch2] > -35 && vexRT[Ch2] < 35)
-    {
-      rightSpeed = 0;
-    }
-    else
-    {
-      rightSpeed = vexRT[Ch2];
-    }
+		//To control the right side using channel 2
+		if (vexRT[Ch2] > -25 && vexRT[Ch2] < 25)
+		{
+			rightSpeed = 0;
+		}
+		else
+		{
+			rightSpeed = vexRT[Ch2];
+		}
 
-    leftDrive(leftSpeed);
-    rightDrive(rightSpeed);
+		leftDrive(leftSpeed);
+		rightDrive(rightSpeed);
 
-    /*				!!!		MOBILE GOAL CARRIER CONTROLS		!!!
+		/*				!!!		MOBILE GOAL CARRIER CONTROLS		!!!
 
-    Pressing Button 6U should bring the mobile goal carrier in
-    Pressing Button 6D should bring the mobile goal carrier out
+		Pressing Button 6U should bring the mobile goal carrier in
+		Pressing Button 6D should bring the mobile goal carrier out
 
-      CHANGE VALUES
-    When contracted, pot = 2403
-    When extended, pot = 348
-    *
-    if(vexRT[Btn6U] == 1 && SensorValue[armLift] <2403)
-    {
-      motor[mobileGoal] = 127;
-    }
-    else if(vexRT[Btn6D] == 1 && SensorValue[armLift] > 348)
-    {
-      motor[mobileGoal] = -127;
-    }
-    else
-    {
-      motor[mobileGoal] = 0;
-    }
-
-
-
-
+		CHANGE VALUES
+		When contracted, pot = 2403
+		When extended, pot = 348
+		*/
+		if(vexRT[Btn6U] == 1 && SensorValue[mobileAngle] <2403)
+		{
+			motor[mobileGoal] = 127;
+		}
+		else if(vexRT[Btn6D] == 1 && SensorValue[mobileAngle] > 348)
+		{
+			motor[mobileGoal] = -127;
+		}
+		else
+		{
+			motor[mobileGoal] = 0;
+		}
 
 
-    if (vexRT[Btn6UXmtr2]==1) {
-			armBaseSpeed = -60;
+
+		/******** SECOND REMOTE CONTROL *********
+		Controls the 2 subsystems of the arm.
+		and intakes the yellow cones
+
+		ADVICE: SHOULD MAKE BOTH ARMBASE AND ARMSWING CONTROLS VIA JOYSTICK
+			FOR MORE MANUAL CONTROL
+		*/
+		/* 				!!!			ARM BASE CONTROLS			!!!
+		Pressing button 6U on the second remote lifts the arm up
+		Pressing button 6D on the second remote lowers the arm.
+		*/
+		if (vexRT[Btn6UXmtr2]==1) {
+			motor[armBase] = -60;
 		}
 		else if (vexRT[Btn6DXmtr2]==1) {
-			armBaseSpeed = 60;
-			//grabberSpeed = -30;
+			motor[armBase] = 60;
 		}
 		else {
-			armBaseSpeed = 0;
+			motor[armBase] = 0;
 		}
-		//Controls pinchers movement
+
+
+		//Contorls the secondary arm
+		if (vexRT[Btn5UXmtr2]==1)
+		{
+			motor[armSwing] = 60;
+		}
+		else if (vexRT[Btn5DXmtr2] == 1)
+		{
+			motor[armSwing] = -60;
+		}
+		else
+		{
+			motor[armSwing] = 0;
+		}
+
+
+		//Controls golaith intake
 		if (vexRT[Btn8UXmtr2]==1)
 		{
-			grabberSpeed = 127;
+			motor[grabber] = 127;
 		}
 		else if (vexRT[Btn8DXmtr2]==1)
 		{
-			grabberSpeed = -127;
+			motor[grabber] = -127;
 		}
 		else {
-			grabberSpeed = 0;
+			motor[grabber] = 0;
 		}
-*/
 
 
-
-    //light control (if getting one... VEX inverse the controls... idk y)
-    //turning light on (0 = on)
-    if (vexRT[Btn7R] == 1)
-    {
-      SensorValue[light1] = 0;
-      SensorValue[light2] = 0;
-    }
-    //turning light off (1 = off)
-    else if (vexRT[Btn8L] == 1)
-    {
-      SensorValue[light1] = 1;
-      SensorValue[light2] = 1;
-    }
-  }
+		//light controls
+		//turning light on (0 = on)
+		if (vexRT[Btn7R] == 1)
+		{
+			SensorValue[rightLights] = 0;
+			SensorValue[leftLights] = 0;
+		}
+		//turning light off (1 = off)
+		else if (vexRT[Btn8L] == 1)
+		{
+			SensorValue[rightLights] = 1;
+			SensorValue[leftLights] = 1;
+		}
+	}
 }

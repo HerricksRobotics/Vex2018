@@ -1,9 +1,14 @@
-#pragma config(Sensor, in1,    gyro1,          sensorGyro)
-#pragma config(Sensor, in2,    gyro2,          sensorGyro)
+#pragma config(Sensor, in1,    rightGyro,      sensorGyro)
+#pragma config(Sensor, in2,    leftGyro,       sensorGyro)
+#pragma config(Sensor, in3,    mobileAngle,    sensorPotentiometer)
+#pragma config(Sensor, in4,    armSwingAngle,  sensorPotentiometer)
+#pragma config(Sensor, in5,    rightLine,      sensorLineFollower)
+#pragma config(Sensor, in6,    midLine,        sensorLineFollower)
+#pragma config(Sensor, in7,    leftLine,       sensorLineFollower)
 #pragma config(Sensor, dgtl1,  rightEncoder,   sensorQuadEncoder)
 #pragma config(Sensor, dgtl3,  leftEncoder,    sensorQuadEncoder)
-#pragma config(Sensor, dgtl5,  light1,         sensorLEDtoVCC)
-#pragma config(Sensor, dgtl6,  light2,         sensorLEDtoVCC)
+#pragma config(Sensor, dgtl5,  rightLights,    sensorLEDtoVCC)
+#pragma config(Sensor, dgtl6,  leftLights,     sensorLEDtoVCC)
 #pragma config(Motor,  port1,           rightBack,     tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port2,           rightMid,      tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port3,           rightFront,    tmotorVex393_MC29, openLoop, reversed)
@@ -45,7 +50,7 @@ task main()
 	wait1Msec(1000);
 	SensorType[in1] = sensorGyro;
 	wait1Msec(2000);
-	SensorValue[gyro] = 0; //positive counterclockwise
+	SensorValue[rightGyro] = 0; //positive counterclockwise
 
 	SensorValue[rightEncoder] = 0;
 	SensorValue[leftEncoder] = 0;
@@ -76,7 +81,7 @@ task main()
 	moveForward(0);
 
 	//Turn left by 120 degrees
-	while (abs(SensorValue[gyro]) < 1350) {
+	while (abs(SensorValue[rightGyro]) < 1350) {
 		rightDrive(50);
 		leftDrive(-50);
 	}
@@ -90,10 +95,10 @@ task main()
 	}
 	moveForward(0);
 
-	SensorValue[gyro] = 0;
+	SensorValue[rightGyro] = 0;
 
 	//Turn towards 20 point zone
-	while (abs(SensorValue[gyro]) < 900) {
+	while (abs(SensorValue[rightGyro]) < 900) {
 		rightDrive(50);
 		leftDrive(-50);
 	}
