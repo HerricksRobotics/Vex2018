@@ -21,310 +21,128 @@ void moveForward(int speed) {
 }
 
 void liftArm(int speed) {
-
 	motor[leftArm] = speed;
-
 	motor[rightArm] = speed;
-
 }
 
 void liftMobileArm(int speed) {
-
   motor[mobileLift] = speed;
-
   motor[mobileLift2] = speed;
-
 }
 
+void dreamCatcher(int speed){
+	motor[frontMotor] = speed;
+}
 //Code for VEX 11040B
 
 task main()
-
 {
-	int leftSpeed;
+	while (true)
+	{
 
-	int rightSpeed;
+		//Gyro Setup
+		SensorType[in2] = sensorNone;
+		wait1Msec(1000);
 
-	int armBaseSpeed;
+		SensorType[in2] = sensorGyro;
+		wait1Msec(2000);
 
-	int grabberSpeed;
+		//Reset encoder values
+		SensorValue[rightEncoder] = 0;
+		SensorValue[leftEncoder] = 0;
 
-	int mobileSpeed;
+		//Keeps preload in at all times
+		dreamCatcher(127);
 
-	SensorValue[rightEncoder] = 0;
-	SensorValue[leftEncoder] = 0;
+		//Move arm backward
+		liftArm(-127);
+		wait1Msec(2500);
+		liftArm(0);
 
-	//Keep Grabber on the whole time
-	motor[frontMotor] = -127;
-
-	//Move Arm back for Preload
-	liftArm(-80);
-	wait1Msec(1200);
-	liftArm(0);
-	//Lower Mobile Goal Lift
-
-	liftMobileArm(-127);
-	wait1Msec(1500);
-	liftMobileArm(0);
-
-	//Move Forward Towards Mobile Goal
-	while (4 * PI * (SensorValue[rightEncoder] / 360) < 32) {
-		moveForward(80);
-	}
-	moveForward(0);
-
-	//Raise Mobile Goal Lift
-	liftMobileArm(127);
-	wait1Msec(1500);
-	liftMobileArm(0);
-
-	//Stack Preload
-	liftArm(80);
-	wait1Msec(1000);
-	liftArm(0);
-
-	//Move Backwards
-	while (4 * PI * (SensorValue[rightEncoder] / 360) > 0) {
-
-		if (SensorValue[rightEncoder] > SensorValue[leftEncoder] ) {
-			motor[leftFront] = 50;
-			motor[leftBack] = 50;
-			motor[rightFront] = 0;
-			motor[rightBack] = 0;
+		//Move forward 3 inches
+		int tickGoal = 42 * 3;
+		while (SensorValue[rightEncoder] < tickGoal)
+		{
+			moveForward(127);
 		}
-		else {
-			moveForward(-80);
+		moveForward(0);
+
+		//Turn 95 degrees to the right
+		int degrees10 = -850;
+		while (abs(SensorValue[in2]) < degrees10)
+			{
+				moveForward(127);
+			}
+		moveForward(0);
+
+		//Lowers Mobile Goal
+		liftMobileArm(-127);
+		wait1Msec(2000);
+		liftMobileArm(0);
+
+		//Move Forward Towards MobileGoal #1
+		tickGoal = 42 * 48;
+		while (SensorValue[rightEncoder] < tickGoal)
+		{
+			moveForward(127);
 		}
+		moveForward(0);
+
+		//Raise Mobile Goal
+		liftMobileArm(127);
+		wait1Msec(2000);
+		liftMobileArm(0);
+
+		//Stack preload onto MobileGoal #1
+		liftArm(127);
+		wait1Msec(2500);
+		liftArm(0);
+
+		//Releases preload onto MobileGoal #1
+		dreamCatcher(-127);
+		wait1Msec(2500);
+		dreamCatcher(0);
+
+		//Move Arm Back
+		liftArm(127);
+		wait1Msec(2500);
+		liftArm(0);
+
+		//Move backwards away from the cones
+		tickGoal = 42 * 48;
+		while(SensorValue[rightEncoder] < tickGoal)
+		{
+			moveForward(-127);
+		}
+		moveForward(0);
+
+		//Turn Left 200 degrees
+		degrees10 = 2000;
+		while(abs(SensorValue[in2]) < degrees10)
+		{
+			moveForward(127);
+		}
+		moveForward(0);
+
+		//Moves Forward towards 20-point zone
+		tickGoal = 42 * 48;
+		while (SensorValue[rightEncoder] < tickGoal)
+		{
+			moveForward(127);
+		}
+		moveForward(0);
+
+		//Releases Mobile Goal into 20-point zone
+		liftMobileArm(-127);
+		wait1Msec(2000);
+		liftMobileArm(0);
+
+		//Moves Backward out of the scoring zones
+		tickGoal = 42 * 38;
+		while (SensorValue[rightEncoder] < tickGoal)
+		{
+			moveForward(-127);
+		}
+		moveForward(0);
 	}
-	moveForward(0);
-	SensorValue[gyro] = 0;
-	//Turn right by 120 degrees
-	while (abs(SensorValue[gyro]) < 1350) {
-		motor[rightFront] = -50;
-		motor[rightBack] = -50;
-		motor[leftFront] = 50;
-		motor[leftBack] = 50;
-	}
-	motor[rightFront] = 0;
-	motor[rightBack] = 0;
-	motor[leftFront] = 0;
-	motor[leftBack] = 0;
-
-	liftArm(-80);
-	wait1Msec(1000);
-	liftArm(0);
-
-	liftMobileArm(-127);
-	wait1Msec(1500);
-	liftMobileArm(0);
-
-	moveForward(-100);
-	wait1Msec(2000);
-	moveForward(0);
-
-	//
-
-	SensorValue[gyro] = 0;
-	while(abs(SensorValue[gyro]) < 900) {
-		//Turn right
-		motor[leftFront] = 100;
-		motor[leftBack] = 100;
-		motor[rightFront] = 0;
-		motor[rightBack] = 0;
-	}
-	
-
-	SensorValue[gyro] = 0;
-	while(abs(SensorValue[gyro]) < 900) {
-		//Turn right
-		motor[leftFront] = 100;
-		motor[leftBack] = 100;
-		motor[rightFront] = 0;
-		motor[rightBack] = 0;
-	}
-
-	moveForward(127);
-	wait1Msec(5500);
-	moveForward(0);
-
-	liftArm(-100);
-	wait1Msec(2000);
-	liftArm(0);
-
-	motor[frontMotor] = -127;
-	wait1Msec(1500);
-	motor[frontMotor] = 0;
-
-	motor[frontMotor] = 127;
-	wait1Msec(1500);
-	motor[frontMotor] = 0;
-
-	SensorValue[gyro] = 0;
-	while(abs(SensorValue[gyro]) < 450) {
-		//Turn right
-		motor[leftFront] = 100;
-		motor[leftBack] = 100;
-		motor[rightFront] = 0;
-		motor[rightBack] = 0;
-	}
-
-	liftMobileArm(-100);
-	wait1Msec(1000);
-	liftMobileArm(0);
-
-	moveForward(50);
-	wait1Msec(1500);
-	moveForward(0);
-
-	liftMobileArm(100);
-	wait1Msec(1500);
-	liftMobileArm(0);
-
-	SensorValue[gyro] = 0;
-	while(abs(SensorValue[gyro]) < 550) {
-		//Turn right
-		motor[leftFront] = 100;
-		motor[leftBack] = 100;
-		motor[rightFront] = 0;
-		motor[rightBack] = 0;
-	}
-
-	moveForward(127);	
-	wait1Msec(3000);
-	moveForward(0);
-
-	SensorValue[gyro] = 0;
-	while(abs(SensorValue[gyro]) < 900) {
-		//Turn right
-		motor[leftFront] = 100;
-		motor[leftBack] = 100;
-		motor[rightFront] = 0;
-		motor[rightBack] = 0;
-	}
-
-
-	liftMobileArm(-127); 
-	wait1Msec(1000);
-	liftMobileArm(0);
-	
-	moveForward(-127);
-	wait1Msec(1000);
-	liftMobileArm(0);
-
-	liftMobileArm(127);
-	wait1Msec(1000);
-	liftMobileArm(0);
-
-	//Removed code that moved robot too far back
-
-	SensorValue[gyro] = 0;
-	while(abs(SensorValue[gyro]) < 900) {
-		//Turn left
-		motor[leftFront] = 0;
-		motor[leftBack] = 0;		//Robot turned in wrong direction previously
-		motor[rightFront] = 100;
-		motor[rightBack] = 100;
-	}
-
-	moveForward(127);
-	wait1Msec(4000);
-	moveForward(0);
-
-	liftMobileArm(-127);
-	wait1Msec(1500);
-
-	motor[frontMotor] = -127;
-	wait1Msec(1000);
-	motor[frontMotor] =  0;
-
-	motor[frontMotor] = 127;
-	wait1Msec(1000);
-	motor[frontMotor] = 127;
-
-	liftMobileArm(-127);
-
-
-
-	
-
-
-	
-	wait1Msec(1000);
-
-	//Moves forward
-	moveForward(127);
-
-	wait1Msec(4000);
-	moveForward(0);
-
-	motor[leftFront] = 100;
-	motor[leftBack] = 100;
-	motor[rightFront] = 0;
-	motor[rightBack] = 0;
-
-	wait1Msec(1000);
-
-	liftMobileArm(-120);
-	wait1Msec(1500);
-	liftMobileArm(0);
-
-	liftMobileArm(120);
-	wait1Msec(1500);
-
-	while(abs(SensorValue[gyro]) < 450) {
-		//Turn left
-		motor[leftFront] = 0;
-		motor[leftBack] = 0;
-		motor[rightFront] = 100;
-		motor[rightBack] = 100;
-	}
-	moveForward (60);
-	wait1Msec(500);
-	liftMobileArm(-120);
-	wait1Msec(1500);
-	liftMobileArm(0);
-	moveForward(-60);
-	wait1Msec(2000);
-	moveForward(0);
-	//This part ends backed up in the middle of the field near the back stationary goal
-		while(abs(SensorValue[gyro]) < 1350) {
-		//Turn left
-		motor[leftFront] = 0;
-		motor[leftBack] = 0;		
-		motor[rightFront] = 100;
-		motor[rightBack] = 100;
-	}
-	moveForward(127);
-	wait1Msec(2000);
-	moveForward(0);
-	liftMobileArm(-127);
-	wait1Msec(1500);
-	liftMobileArm(0);
-	moveForward(60);
-	wait1Msec(1000);
-	moveForward(0);
-	liftMobileArm(127);
-	wait1Msec(1500);
-	liftMobileArm(0);
-	while(abs(SensorValue[gyro]) < 900) {
-		//Turn left
-		motor[leftFront] = 100;
-		motor[leftBack] = 100;		
-		motor[rightFront] = 0;
-		motor[rightBack] = 0;
-	}
-	moveForward(127);
-	wait1Msec(2000);
-	moveForward(0);
-	liftMobileArm(-127);
-	wait1Msec(1500);
-	liftMobileArm(0);
-	moveForward(-127);
-	wait1Msec(2000);
-	moveForward(0);
-	liftMobileArm(127);
-	wait1Msec(1000);
-	liftMobileArm(0);
-	
-
 }
