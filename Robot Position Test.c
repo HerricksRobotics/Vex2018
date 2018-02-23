@@ -14,7 +14,6 @@ float changeInY;
 float x = 0;                  //the x position from the starting position
 float y = 0;                  //the y position from the starting position
 float z = 0;                  //radians of the robot facing from the starting position
-                              //LOL WHEN RICHARD FINDS THIS SHIT IT MEANS HES RETARDED
 
 //(x,y) of the robot's current position
 void location()
@@ -24,7 +23,7 @@ void location()
 
     z = degreesToRadians(sensorValue[gyro]);              //gyro outputs degrees... gotta change it to rad
 
-                                              
+
 
     leftDistance = 4 * PI * (sensorValue[leftEncoder]/360);
     rightDistance = 4 * PI * (sensorValue[rightEncoder]/360);
