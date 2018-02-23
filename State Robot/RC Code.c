@@ -149,6 +149,7 @@ task main()
 			motor[grabber] = 0;
 		}
 
+//******************************************************************************
 
 		//light controls
 		//turning light on (0 = on)

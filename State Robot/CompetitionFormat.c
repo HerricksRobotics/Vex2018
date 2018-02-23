@@ -157,55 +157,53 @@ task usercontrol()
 
 
 
-		/******** SECOND REMOTE CONTROL *********
+    /******** SECOND REMOTE CONTROL *********
 		Controls the 2 subsystems of the arm.
 		and intakes the yellow cones
 
 		ADVICE: SHOULD MAKE BOTH ARMBASE AND ARMSWING CONTROLS VIA JOYSTICK
-		FOR MORE MANUAL CONTROL
+			FOR MORE MANUAL CONTROL
 		*/
 		/* 				!!!			ARM BASE CONTROLS			!!!
-		Pressing button 6U on the second remote lifts the arm up
-		Pressing button 6D on the second remote lowers the arm.
+		Channel 3 controls the arm moving up and down
 		*/
-		if (vexRT[Btn6UXmtr2]==1) {
-			motor[armBase] = -60;
-		}
-		else if (vexRT[Btn6DXmtr2]==1) {
-			motor[armBase] = 60;
-		}
-		else {
+		if (vexRT[Ch3Xmtr2] > -25 && vexRT[Ch3Xmtr2] < 25)
+		{
 			motor[armBase] = 0;
-		}
-
-
-		//Contorls the secondary arm
-		if (vexRT[Btn5UXmtr2]==1)
-		{
-			motor[armSwing] = 60;
-		}
-		else if (vexRT[Btn5DXmtr2] == 1)
-		{
-			motor[armSwing] = -60;
 		}
 		else
 		{
+			motor[armBase] = vexRT[Ch3Xmtr2];
+		}
+
+
+		//Channel 2 contorls the secondary arm
+		if (vexRT[Ch2Xmtr2] > -25 && vexRT[Ch2Xmtr2] < 25)
+		{
 			motor[armSwing] = 0;
+		}
+		else
+		{
+			motor[armSwing] = vexRT[Ch2Xmtr2];
 		}
 
 
 		//Controls golaith intake
-		if (vexRT[Btn8UXmtr2]==1)
+		// 6U and 5U takes in the cone
+		if (vexRT[Btn6UXmtr2]==1 || vexRT[Btn5UXmtr2] == 1)
 		{
 			motor[grabber] = 127;
 		}
-		else if (vexRT[Btn8DXmtr2]==1)
+		//6D and 5D spits out the cone
+		else if (vexRT[Btn6DXmtr2]==1 || vexRT[Btn5DXmtr2] == 1)
 		{
 			motor[grabber] = -127;
 		}
 		else {
 			motor[grabber] = 0;
 		}
+
+
 
 
 		//light controls
