@@ -41,6 +41,8 @@ task main()
 	SensorType[in1] = sensorGyro;
 	SensorType[in2] = sensorGyro;
 	wait1Msec(2000);
+	SensorValue[rightGyro] = 0; 
+	SensorValue[leftGyro] = 0; //positive counterclockwise
 
 	SensorValue[rightEncoder] = 0;
 	SensorValue[leftEncoder] = 0;
