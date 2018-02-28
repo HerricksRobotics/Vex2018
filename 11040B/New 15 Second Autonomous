@@ -1,0 +1,36 @@
+#pragma config(Sensor, in1,    gyro,           sensorGyro)
+#pragma config(Sensor, in2,    gyro2,          sensorGyro)
+#pragma config(Sensor, dgtl1,  rightEncoder,   sensorQuadEncoder)
+#pragma config(Sensor, dgtl3,  leftEncoder,    sensorQuadEncoder)
+#pragma config(Motor,  port1,           leftBack,      tmotorVex393_HBridge, openLoop)
+#pragma config(Motor,  port2,           leftMid,       tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port3,           rightFront,    tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port4,           mobileLift,    tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           elevatorLift,  tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           swingArm,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port7,           grabber,       tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port8,           rightBack,     tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port9,           rightMid,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port10,          leftFront,     tmotorVex393_HBridge, openLoop)
+
+void moveForward(int speed){
+  motor[leftFront]=speed;
+  motor[leftBack]=speed;
+  motor[leftMid]=-speed;
+  motor[rightFront]=speed;
+  motor[rightBack]=-speed;
+  motor[rightMid]=speed;
+}
+void leftDrive(short speed)
+{
+	motor[leftFront] = speed;
+	motor[leftMid] = speed;
+	motor[leftBack] = speed;
+}
+
+void rightDrive(short speed)
+{
+	motor[rightFront] = speed;
+	motor[rightMid] = speed;
+	motor[rightBack] = speed;
+}
