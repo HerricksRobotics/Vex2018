@@ -34,3 +34,9 @@ void rightDrive(short speed)
 	motor[rightMid] = speed;
 	motor[rightBack] = speed;
 }
+void lowerCone(){
+	motor[swingArm]=-127;
+	wait1Msec(1000);
+	motor[grabber]=-127;
+	wait1Msec(1000);
+}
