@@ -41,7 +41,7 @@ task main()
 	SensorType[in1] = sensorGyro;
 	SensorType[in2] = sensorGyro;
 	wait1Msec(2000);
-	SensorValue[rightGyro] = 0; 
+	SensorValue[rightGyro] = 0;
 	SensorValue[leftGyro] = 0; //positive counterclockwise
 
 	SensorValue[rightEncoder] = 0;
@@ -90,13 +90,13 @@ task main()
 		When contracted, pot =
 		When extended, pot =
 		*/
-		if(vexRT[Btn6U] == 1 && SensorValue[mobileAngle] <2403)
-		{
-			motor[mobileGoal] = 127;
-		}
-		else if(vexRT[Btn6D] == 1 && SensorValue[mobileAngle] > 348)
+		if(vexRT[Btn6U] == 1 || vexRT[Btn5D]==1)
 		{
 			motor[mobileGoal] = -127;
+		}
+		else if(vexRT[Btn6D] == 1 || vexRT[Btn5U]==1)
+		{
+			motor[mobileGoal] = 127;
 		}
 		else
 		{
