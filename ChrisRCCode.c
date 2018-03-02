@@ -68,13 +68,29 @@ task main()
 		*/
 
 		//Controls arm movement
-		if (vexRT[Ch2Xmtr2] > -35 && vexRT[Ch2Xmtr2] < 35) {
-			armBaseSpeed = vexRT[Ch2Xmtr2];
+		if (vexRT[Btn6UXmtr2]==1)
+		{
+			armBaseSpeed = 127;
+		}
+		else if (vexRT[Btn6DXmtr2]==1)
+		{
+			armBaseSpeed = -127;
+		}
+		else {
+			armBaseSpeed = 0;
 		}
 
 		//Controls elevator lift movement
-		if (vexRT[Ch3Xmtr2] > -35 && vexRT[Ch3Xmtr2] < 35) {
-			elevatorLiftSpeed = vexRT[Ch3Xmtr2];
+		if (vexRT[Btn5UXmtr2]==1)
+		{
+			elevatorLiftSpeed = 127;
+		}
+		else if (vexRT[Btn5DXmtr2]==1)
+		{
+			elevatorLiftSpeed = -127;
+		}
+		else {
+			elevatorLiftSpeed = 0;
 		}
 
 		//Controls pinchers movement
