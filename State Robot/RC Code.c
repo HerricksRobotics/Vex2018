@@ -114,7 +114,7 @@ task main()
 		*/
 		/* 				!!!			ARM BASE CONTROLS			!!!
 		Channel 3 controls the arm moving up and down
-		*/
+		*
 		if (vexRT[Ch3Xmtr2] > -25 && vexRT[Ch3Xmtr2] < 25)
 		{
 			motor[armBase] = 0;
@@ -122,6 +122,20 @@ task main()
 		else
 		{
 			motor[armBase] = vexRT[Ch3Xmtr2];
+		}
+		*/
+
+		if (vexRT[Btn7LXmtr2] == 1)
+		{
+			motor[armBase] = 127;
+		}
+		else if (vexRT[Btn7RXmtr2] == 1)
+		{
+			motor[armBase] = -127;
+		}
+		else
+		{
+			motor[armBase] = 0;
 		}
 
 
