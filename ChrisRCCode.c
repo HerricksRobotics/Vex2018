@@ -24,8 +24,7 @@ task main()
 	short elevatorLiftSpeed;
 	short grabberSpeed;
 	while (true)
-	{
-		/*
+	{		/*
 
 		CHRIS'S CONTROLS
 
@@ -68,11 +67,11 @@ task main()
 		*/
 
 		//Controls arm movement
-		if (vexRT[Btn6UXmtr2]==1)
+		if (vexRT[Btn6DXmtr2]==1)
 		{
 			armBaseSpeed = 127;
 		}
-		else if (vexRT[Btn6DXmtr2]==1)
+		else if (vexRT[Btn6UXmtr2]==1)
 		{
 			armBaseSpeed = -127;
 		}
@@ -81,11 +80,11 @@ task main()
 		}
 
 		//Controls elevator lift movement
-		if (vexRT[Btn5UXmtr2]==1)
+		if (vexRT[Btn5DXmtr2]==1)
 		{
 			elevatorLiftSpeed = 127;
 		}
-		else if (vexRT[Btn5DXmtr2]==1)
+		else if (vexRT[Btn5UXmtr2]==1)
 		{
 			elevatorLiftSpeed = -127;
 		}
