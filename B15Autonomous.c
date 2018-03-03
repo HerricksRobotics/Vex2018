@@ -28,12 +28,18 @@ void turnRight(int speed) {
 	motor[leftBack] = speed;
 	motor[leftMid] = speed;
 	motor[leftFront] = speed;
+	motor[rightBack] = -speed;
+	motor[rightMid] = -speed;
+	motor[rightFront] = -speed;
 }
 
 void turnLeft(int speed) {
 	motor[rightBack] = speed;
 	motor[rightMid] = speed;
 	motor[rightFront] = speed;
+	motor[leftBack] = -speed;
+	motor[leftMid] = -speed;
+	motor[leftFront] = -speed;
 }
 
 task main()
@@ -45,83 +51,87 @@ task main()
 	SensorType[in1] = sensorGyro;
 	SensorType[in2] = sensorGyro;
 	wait1Msec(2000);
-	
+
 	//Roll grabber down
 	motor[grabber] = 127;
-	
+
 	//Raise the elevator lift
 	motor[elevatorLift] = -127;
 	wait1Msec(1000);
 	motor[elevatorLift] = 0;
-	
+
 	//Lower the mobile goal lift
 	motor[mobileLift] = 127;
-	wait1Msec(1000);
+	wait1Msec(2000);
 	motor[mobileLift] = 0;
-	
+
 	//Move Forward
-	while (4 * PI * SensorValue[rightEncoder] / 360 < 28) {
+	while (4 * PI * SensorValue[rightEncoder] / 360 < 48) {
 		moveForward(127);
 	}
 	moveForward(0);
-	
+
 	//Raise the mobile goal lift
 	motor[mobileLift] = -127;
-	wait1Msec(1000);
+	wait1Msec(2000);
 	motor[mobileLift] = 0;
-	
+
 	//Lower the elevator lift
 	motor[elevatorLift] = 127;
 	wait1Msec(1000);
 	motor[elevatorLift] = 0;
-	
+
 	//Turn the grabber off
 	motor[grabber] = 0;
-	
+
 	//Move Backward
 	while(4 * PI * SensorValue[rightEncoder] / 360 > 0) {
 		moveForward(-127);
 	}
 	moveForward(0);
-	
+
 	//Turn Left
-	while( abs( (SensorValue[gyro] + SensorValue[gyro2]) / 2 ) < 1350) {
+	while( abs( SensorValue[gyro] ) < 1225) {
 		turnLeft(127);
 	}
 	turnLeft(0);
-	
+
 	//Reset the rightEncoder
 	SensorValue[rightEncoder] = 0;
-	
+
 	//Move Forward
 	while (4 * PI * SensorValue[rightEncoder] / 360 < 12) {
 		moveForward(127);
 	}
 	moveForward(0);
 	
+	//Reset the gyro
+	SensorValue[gyro] = 0;
+	
 	//Turn Left 90 Degrees
-	while ( abs( (SensorValue[gyro] + SensorValue[gyro2]) / 2) < 900) {
+	while ( abs( SensorValue[gyro]) < 800) {
 		turnLeft(127);
 	}
-	
+	turnLeft(0);
+
 	//Raise the elevator lift
 	motor[elevatorLift] = -127;
 	wait1Msec(1000);
 	motor[elevatorLift] = 0;
-	
+
 	//Move Forward at full speed
 	moveForward(127);
-	wait1Msec(2000);
+	wait1Msec(1500);
 	moveForward(0);
-	
+
 	//Lower the mobile goal lift
 	motor[mobileLift] = 127;
 	wait1Msec(1000);
 	motor[mobileLift] = 0;
-	
+
 	//Move backward at full speed
 	moveForward(-127);
 	wait1Msec(2000);
 	moveForward(0);
-	
+
 }
