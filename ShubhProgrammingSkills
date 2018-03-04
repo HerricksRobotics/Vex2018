@@ -95,8 +95,8 @@ task main()
 	}
 	moveForward(0);
 
-	//Turn clockwise 175 degrees
-	while( abs( SensorValue[gyro] ) < 1750) {
+	//Turn clockwise 180 degrees
+	while( abs( SensorValue[gyro] ) < 1700) {
 		clockwise(127);
 	}
 	clockwise(0);
@@ -192,120 +192,184 @@ task main()
 	moveForward(0);
 
 	//Mobile Goal #3---------------
-	
+
 	//Reset gyro
 	SensorValue[gyro] = 0;
-	
+
 	//Turn counter-clockwise
 	while( abs( SensorValue[gyro] ) < 90) {
 		counterClock(127);
 	}
 	counterClock(0);
-	
+
 	//Raise elevator lift
 	elevator(-127, 1000);
-	
+
 	//Lower mobile goal
 	mobileGoal(127, 1000);
-	
+
 	//Reset right encoder
 	SensorValue[rightEncoder] = 0;
-	
+
 	//Move forward 48 inches
 	while (4 * PI * SensorValue[rightEncoder] / 360 < 48) {
 		moveForward(127);
 	}
 	moveForward(0);
-	
+
 	//Raise mobile goal
 	mobileGoal(127, 1000);
-	
+
 	//Move backward
 	while (4 * PI * SensorValue[rightEncoder] / 360 < 26) {
 		moveForward(127);
 	}
-	moveForward(0);	
-	
+	moveForward(0);
+
 	//Lower elevator lift
 	elevator(127, 1000);
-	
+
 	//Reset gyro
 	SensorValue[gyro] = 0;
-	
+
 	//Turn counter-clockwise
 	while( abs( SensorValue[gyro] ) < 160) {
 		counterClock(127);
 	}
 	counterClock(0);
-	
+
 	//Reset right encoder
 	SensorValue[rightEncoder] = 0;
-	
-	//Move forward 
+
+	//Move forward
 	while (4 * PI * SensorValue[rightEncoder] / 360 < 18) {
 		moveForward(127);
 	}
-	moveForward(0);	
-	
+	moveForward(0);
+
 	//Raise elevator lift
 	elevator(-127, 1000);
-	
+
 	//Move forward
 	moveForward(127);
 	wait1Msec(1500);
 	moveForward(0);
-	
+
 	//Lower mobile goal
 	mobileGoal(127, 1000);
-	
+
 	//Move backward
 	moveForward(-127);
 	wait1Msec(1500);
 	moveForward(0);
-	
+
 	//Lower elevator lift
 	elevator(127, 1000);
-	
+
 	//Raise mobile goal
 	mobileGoal(-127, 1000);
-	
+
 	//Mobile Goal #4----------
-	
+
 	//Reset gyro
 	SensorValue[gyro] = 0;
-	
+
 	//Turn counter-clockwise
 	while( abs( SensorValue[gyro] ) < 175) {
 		counterClock(127);
 	}
 	counterClock(0);
-	
+
 	//Raise elevator lift
 	elevator(-127, 1000);
-	
+
 	//Lower mobile goal
 	mobileGoal(127, 1000);
+
+	//Reset right encoder
+	SensorValue[rightEncoder] = 0;
+
+	//Move forward
+	while (4 * PI * SensorValue[rightEncoder] / 360 < 33) {
+		moveForward(127);
+	}
+	moveForward(0);
+
+	//Raise mobile goal
+	mobileGoal(-127, 1000);
+
+	//Lower elevator lift
+	elevator(127, 1000);
+
+	//Reset gyro
+	SensorValue[gyro] = 0;
+
+	//Turn counter-clockwise
+	while( abs( SensorValue[gyro] ) < 127) {
+		counterClock(127);
+	}
+	counterClock(0);
+
+	//Raise elevator lift
+	elevator(-127, 1000);
+
+	//Move forward
+	moveForward(127);
+	wait1Msec(5500);
+	moveForward(0);
+
+	//Lower mobile goal
+	mobileGoal(127, 1000);
+
+	//Move backward
+	moveForward(-127);
+	wait1Msec(2500);
+	moveForward(0);
+	/*
+	
+	//Mobile Goal #5----------------------
+	
+	//Reset gyro
+	SensorValue[gyro] = 0;
+	
+	//Turn 120 degrees counter-clockwise
+	while( abs( SensorValue[gyro] ) < 115) {
+		counterClock(127);
+	}
+	counterClock(0);
+	
+	//Reset right encoders
+  SensorValue[rightEncoder] = 0;
+	
+	//Move forward
+	while (4 * PI * SensorValue[rightEncoder] / 360 < 54) {
+		moveForward(127);
+	}
+	moveForward(0);
+	
+	//Reset gyro
+	SensorValue[gyro] = 0;
+	
+	//Turn 90 counter-clockwise
+	while( abs( SensorValue[gyro] ) < 80) {
+		counterClock(127);
+	}
+	counterClock(0);
 	
 	//Reset right encoder
 	SensorValue[rightEncoder] = 0;
 	
-	//Move forward 
-	while (4 * PI * SensorValue[rightEncoder] / 360 < 33) {
+	//Move forward
+	while (4 * PI * SensorValue[rightEncoder] / 360 < 56) {
 		moveForward(127);
 	}
-	moveForward(0);		
-	
-	//Raise mobile goal
-	mobileGoal(-127, 1000);
-	
-	//Lower elevator lift
-	elevator(127, 1000);
+	moveForward(0);
 	
 	//Reset gyro
 	SensorValue[gyro] = 0;
 	
 	//Turn counter-clockwise
-	while( abs( SensorValue[gyro] ) < 127) {
+	while( abs( SensorValue[gyro] ) < 135) {
 		counterClock(127);
 	}
 	counterClock(0);
@@ -313,17 +377,19 @@ task main()
 	//Raise elevator lift
 	elevator(-127, 1000);
 	
-	//Move forward
-	moveForward(127);
-	wait1Msec(5500);
-	moveForward(0);
-	
 	//Lower mobile goal
 	mobileGoal(127, 1000);
 	
-	//Move backward
-	moveForward(-127);
-	wait1Msec(2000);
+	//Reset right encoders
+	SensorValue[rightEncoder] = 0;
+	
+	//Move forward
+	while (4 * PI * SensorValue[rightEncoder] / 360 < 10) {
+		moveForward(127);
+	}
 	moveForward(0);
 	
+	//Raise mobile goal
+	*/
+
 }
