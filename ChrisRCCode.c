@@ -7,8 +7,8 @@
 #pragma config(Motor,  port2,           rightMid,      tmotorVex393HighSpeed_MC29, openLoop)
 #pragma config(Motor,  port3,           leftBack,      tmotorVex393HighSpeed_MC29, openLoop)
 #pragma config(Motor,  port4,           mobileLift,    tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port5,           elevatorLift,  tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port6,           swingArm,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           swingArm,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           elevatorLift,  tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port7,           grabber,       tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port8,           leftFront,     tmotorVex393HighSpeed_MC29, openLoop)
 #pragma config(Motor,  port9,           leftMid,       tmotorVex393HighSpeed_MC29, openLoop, reversed)
@@ -71,11 +71,11 @@ task main()
 		*/
 
 		//Controls arm movement
-		if (vexRT[Btn6DXmtr2]==1)
+		if (vexRT[Btn5DXmtr2]==1)
 		{
 			armBaseSpeed = 127;
 		}
-		else if (vexRT[Btn6UXmtr2]==1)
+		else if (vexRT[Btn5UXmtr2]==1)
 		{
 			armBaseSpeed = -127;
 		}
@@ -84,13 +84,12 @@ task main()
 		}
 
 		//Controls elevator lift movement
-		if (vexRT[Btn5DXmtr2]==1 && SensorValue(touchSensor) == 0)
+		if (vexRT[Btn6DXmtr2]==1)
 		{
 			elevatorLiftSpeed = 127; //Goes down (only here needs a touch sensor)
 		}
-		else if (vexRT[Btn5UXmtr2] == 1)
+		else if (vexRT[Btn6UXmtr2] == 1)
 		{
-			SensorValue(touchSensor) = 0; //Set the TouchSensor back to 0 when you're moving up
 			elevatorLiftSpeed = -127; //Goes up
 		}
 		else {
@@ -100,11 +99,11 @@ task main()
 		//Controls pinchers movement
 		if (vexRT[Btn8UXmtr2]==1)
 		{
-			grabberSpeed = 127;
+			grabberSpeed = 30;
 		}
 		else if (vexRT[Btn8DXmtr2]==1)
 		{
-			grabberSpeed = -127;
+			grabberSpeed = -30;
 		}
 		else {
 			grabberSpeed = 0;
@@ -123,3 +122,4 @@ task main()
 		motor[grabber] = grabberSpeed;
 	}
 }
+
