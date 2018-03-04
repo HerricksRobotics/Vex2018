@@ -7,8 +7,8 @@
 #pragma config(Motor,  port2,           rightMid,      tmotorVex393HighSpeed_MC29, openLoop)
 #pragma config(Motor,  port3,           leftBack,      tmotorVex393HighSpeed_MC29, openLoop)
 #pragma config(Motor,  port4,           mobileLift,    tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port5,           elevatorLift,  tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port6,           swingArm,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           swingArm,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           elevatorLift,  tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port7,           grabber,       tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port8,           leftFront,     tmotorVex393HighSpeed_MC29, openLoop)
 #pragma config(Motor,  port9,           leftMid,       tmotorVex393HighSpeed_MC29, openLoop, reversed)
@@ -52,12 +52,12 @@ task main()
 	SensorType[in2] = sensorGyro;
 	wait1Msec(2000);
 
-	//Roll grabber down
+	//Keep grabber tight
 	motor[grabber] = 127;
 
 	//Raise the elevator lift
 	motor[elevatorLift] = -127;
-	wait1Msec(1000);
+	wait1Msec(2000);
 	motor[elevatorLift] = 0;
 
 	//Lower the mobile goal lift
@@ -66,7 +66,7 @@ task main()
 	motor[mobileLift] = 0;
 
 	//Move Forward
-	while (4 * PI * SensorValue[rightEncoder] / 360 < 48) {
+	while (4 * PI * SensorValue[rightEncoder] / 360 < 52) {
 		moveForward(127);
 	}
 	moveForward(0);
@@ -76,13 +76,28 @@ task main()
 	wait1Msec(2000);
 	motor[mobileLift] = 0;
 
-	//Lower the elevator lift
+	//Raise the arm a little bit and lower elevator lift
+	motor[swingArm] = -127;
 	motor[elevatorLift] = 127;
-	wait1Msec(1000);
+	wait1Msec(400);
+	motor[swingArm] = 0;
+	wait1Msec(300);
 	motor[elevatorLift] = 0;
 
-	//Turn the grabber off
+	//Release the grabber
+	motor[grabber] = -127;
+	wait1Msec(1500);
 	motor[grabber] = 0;
+
+	//Swing the arm back
+	motor[swingArm] = -127;
+	wait1Msec(1500);
+	motor[swingArm] = 0;
+
+	//Raise the elevator lift
+	motor[elevatorLift] = -127;
+	wait1Msec(1200);
+	motor[elevatorLift] = 0;
 
 	//Move Backward
 	while(4 * PI * SensorValue[rightEncoder] / 360 > 0) {
@@ -90,8 +105,9 @@ task main()
 	}
 	moveForward(0);
 
+	SensorValue[gyro] = 0;
 	//Turn Left
-	while( abs( SensorValue[gyro] ) < 1225) {
+	while( abs( SensorValue[gyro] ) < 1100) {
 		turnLeft(127);
 	}
 	turnLeft(0);
@@ -114,24 +130,22 @@ task main()
 	}
 	turnLeft(0);
 
-	//Raise the elevator lift
-	motor[elevatorLift] = -127;
-	wait1Msec(1000);
-	motor[elevatorLift] = 0;
-
 	//Move Forward at full speed
 	moveForward(127);
-	wait1Msec(1500);
+	wait1Msec(2000);
 	moveForward(0);
 
 	//Lower the mobile goal lift
 	motor[mobileLift] = 127;
-	wait1Msec(1000);
+	wait1Msec(2000);
 	motor[mobileLift] = 0;
 
 	//Move backward at full speed
 	moveForward(-127);
-	wait1Msec(2000);
+	wait1Msec(500);
+	motor[mobileLift] = -127;
+	wait1Msec(1500);
 	moveForward(0);
+	motor[mobileLift] = 0;
 
 }
