@@ -26,7 +26,7 @@ void grabber(short speed){
 task main()
 {
 	/*
-				STAIONARY GOAL AUTONOMOUS
+				STATIONARY GOAL AUTONOMOUS
 	*/
 
 	//Keep cone in at all times
